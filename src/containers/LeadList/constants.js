@@ -1,0 +1,2 @@
+export const FETCH_LEAD_LIST = 'FETCH_LEAD_LIST';
+export const SAVE_LEAD_LIST = 'SAVE_LEAD_LIST';
