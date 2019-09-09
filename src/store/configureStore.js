@@ -3,14 +3,18 @@ import createSagaMiddleware from 'redux-saga';
 import {LeadListReducer} from "../containers/LeadList/reducer";
 import leadListWatcher from "../containers/LeadList/saga";
 import { all } from 'redux-saga/effects';
+import leadDetailWatcher from "../containers/LeadDetail/saga";
+import {LeadDetailReducer} from "../containers/LeadDetail/reducer";
 
 const reducers = combineReducers({
-    leadList: LeadListReducer
+    leadList: LeadListReducer,
+    leadDetail: LeadDetailReducer
 });
 
 function* sagas() {
     yield all([
-        leadListWatcher()
+        leadListWatcher(),
+        leadDetailWatcher()
     ]);
 }
 

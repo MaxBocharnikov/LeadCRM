@@ -20,7 +20,7 @@ const useStyles = makeStyles(theme => ({
 
 const LeadTable = (props) => {
     const classes = useStyles();
-    const {list} = props;
+    const {list, onLeadClick} = props;
     return (
         <Paper className={classes.root}>
             <Table className={classes.table}>
@@ -38,7 +38,7 @@ const LeadTable = (props) => {
                 </TableHead>
                 <TableBody>
                     {list.map(item => (
-                        <TableRow key={item.id}>
+                        <TableRow key={item.id} onDoubleClick={(id) => onLeadClick(item.id)}>
                             <TableCell component="th" scope="row">
                                 {item.id}
                             </TableCell>

@@ -39,5 +39,14 @@ export default class LeadService {
                 resolve(this.leadList);
             }, 1500)
         });
-    }
+    };
+
+    getLeadById = (id) => {
+        return new Promise((resolve) => {
+            const foundLead = this.leadList.find(it => it.id === id);
+            setTimeout(() => {
+                resolve(foundLead);
+            }, 1500)
+        });
+    };
 }

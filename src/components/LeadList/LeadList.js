@@ -8,14 +8,24 @@ export default class LeadList extends Component{
 
     componentDidMount() {
         this.props.fetchLeadList();
-    }
+    };
+
+    onLeadClick = (id) => {
+        this.props.openLeadHandler(id);
+    };
+
 
     render() {
-        const { list } = this.props;
+        const { list, openedLead } = this.props;
+
+        if(openedLead) {
+            console.log('opended lead ', openedLead);
+        }
+
         if (!list.length) return <Spinner/>;
         return (
             <div>
-                <LeadTable list = {list}/>
+                <LeadTable list = {list} onLeadClick={this.onLeadClick}/>
             </div>
         )
     }

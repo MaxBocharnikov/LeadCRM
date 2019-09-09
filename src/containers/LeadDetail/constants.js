@@ -1,0 +1,2 @@
+export const FETCH_LEAD_DETAIL = 'FETCH_LEAD_DETAIL';
+export const SAVE_LEAD_DETAIL = 'SAVE_LEAD_DETAIL';
