@@ -7,7 +7,7 @@ import {fetchLeadDetail} from "../LeadDetail/actions";
 function mapStateToProps(state) {
     return {
         list: state.leadList.list,
-        openedLead: state.leadDetail.lead
+        detailsLoading: state.leadDetail.showSpinner
     }
 }
 

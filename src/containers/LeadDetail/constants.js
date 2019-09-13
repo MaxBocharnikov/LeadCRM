@@ -1,2 +1,6 @@
 export const FETCH_LEAD_DETAIL = 'FETCH_LEAD_DETAIL';
 export const SAVE_LEAD_DETAIL = 'SAVE_LEAD_DETAIL';
+export const SHOW_MODAL = 'SHOW_MODAL';
+export const SHOW_SPINNER = 'SHOW_SPINNER';
+export const HIDE_SPINNER = 'HIDE_SPINNER';
+export const HIDE_MODAL = 'HIDE_MODAL';

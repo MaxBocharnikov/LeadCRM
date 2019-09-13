@@ -16,12 +16,7 @@ export default class LeadList extends Component{
 
 
     render() {
-        const { list, openedLead } = this.props;
-
-        if(openedLead) {
-            console.log('opended lead ', openedLead);
-        }
-
+        const { list } = this.props;
         if (!list.length) return <Spinner/>;
         return (
             <div>
