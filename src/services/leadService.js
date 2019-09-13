@@ -9,7 +9,10 @@ export default class LeadService {
             source: 'some source',
             status: 'Не обработан',
             supervisor: 'Прунькин Михаил',
-            responsible: 'Виктория Сарко'
+            responsible: 'Виктория Сарко',
+            email: 'test@gg.gg',
+            address: 'г Новосибирск. ул. Морская 15-88',
+            comment: 'some'
         },
         {
             id: 2,
@@ -19,7 +22,10 @@ export default class LeadService {
             source: 'some source',
             status: 'Не обработан',
             supervisor: 'Прунькин Михаил',
-            responsible: 'Виктория Сарко'
+            responsible: 'Виктория Сарко',
+            email: '123@gg.gg',
+            address: 'г Новосибирск. ул. Морская 15-88',
+            comment: ''
         },
         {
             id: 3,
@@ -29,7 +35,10 @@ export default class LeadService {
             source: 'some source',
             status: 'Не обработан',
             supervisor: 'Прунькин Михаил',
-            responsible: 'Виктория Сарко'
+            responsible: 'Виктория Сарко',
+            email: '333@gg.gg',
+            address: 'г Новосибирск. ул. Морская 15-88',
+            comment: ''
         }
     ];
 

@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import './LeadDetail.css';
 import Spinner from "../Spinner/Spinner";
 import Overlay from "../Overlay/Overlay";
+import LeadDetailCard from "./LeadDetailCard/LeadDetailCard";
 
 export default class LeadDetail extends Component{
 
@@ -14,7 +15,9 @@ export default class LeadDetail extends Component{
             <Fragment>
                 <Overlay/>
                 <div className="lead-detail-modal">
-                    <p>{lead.fio}</p>
+                    <LeadDetailCard
+                        lead = {lead}
+                    />
                     <button className="btn btn-primary" onClick={hideModal}>Close</button>
                 </div>
             </Fragment>

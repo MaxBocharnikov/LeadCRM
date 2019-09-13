@@ -1,0 +1,32 @@
+.form-group-custom {
+    margin: 1.5em;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.form-group-label {
+    margin-right: .5em;
+    width: 40%;
+}
+
+.form-control-custom {
+    width: 60%;
+    font-size: 1em;
+}
+
+.row {
+    margin: 0;
+}
+
+.block {
+    border-bottom: 1px solid lightgray;
+}
+
+.block:nth-child(odd) {
+    border-right: 1px solid lightgray;
+}
+
+.custom-area {
+    resize: none;
+}
