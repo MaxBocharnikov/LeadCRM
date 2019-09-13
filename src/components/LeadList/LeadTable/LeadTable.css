@@ -1,0 +1,7 @@
+tbody tr {
+    cursor: pointer;
+}
+
+tbody tr:nth-child(even) {
+    background: lightgray;
+}
