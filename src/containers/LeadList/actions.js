@@ -1,4 +1,4 @@
-import {FETCH_LEAD_LIST, SAVE_LEAD_LIST} from "./constants";
+import {FETCH_LEAD_LIST, HIDE_LIST_SPINNER, SAVE_LEAD_LIST, SHOW_LIST_SPINNER} from "./constants";
 
 
 const fetchLeadList = () => {
@@ -16,7 +16,21 @@ const saveLeadList = (list) => {
         }
 };
 
+const showListSpinner = () => {
+    return {
+        type: SHOW_LIST_SPINNER
+    }
+};
+
+const hideListSpinner = () => {
+    return {
+        type: HIDE_LIST_SPINNER
+    }
+}
+
 export {
     fetchLeadList,
-    saveLeadList
+    saveLeadList,
+    showListSpinner,
+    hideListSpinner
 }

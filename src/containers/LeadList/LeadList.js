@@ -1,20 +1,21 @@
 import { connect } from 'react-redux';
 import LeadList from "../../components/LeadList/LeadList";
 import {fetchLeadList} from "./actions";
-import {fetchLeadDetail} from "../LeadDetail/actions";
+import {fetchLeadDetail, showModal} from "../LeadDetail/actions";
 
 
 function mapStateToProps(state) {
     return {
         list: state.leadList.list,
-        detailsLoading: state.leadDetail.showSpinner
+        spinner: state.leadList.spinner
     }
 }
 
 function mapDispatchToProps(dispatch) {
     return {
         fetchLeadList: () => dispatch(fetchLeadList()),
-        openLeadHandler: (id) => dispatch(fetchLeadDetail(id))
+        openLeadHandler: (id) => dispatch(fetchLeadDetail(id)),
+        addLeadCardOpen: () => dispatch(showModal())
     }
 }
 

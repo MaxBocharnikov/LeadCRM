@@ -1,4 +1,4 @@
-import {HIDE_MODAL, HIDE_SPINNER, SAVE_LEAD_DETAIL, SHOW_MODAL, SHOW_SPINNER} from "./constants";
+import {HIDE_MODAL, HIDE_MODAL_SPINNER, SAVE_LEAD_DETAIL, SHOW_MODAL, SHOW_MODAL_SPINNER} from "./constants";
 
 const initialState = {
     spinner: false,
@@ -15,7 +15,7 @@ export const LeadDetailReducer = (state = initialState, action) => {
             }
         }
 
-        case SHOW_SPINNER: {
+        case SHOW_MODAL_SPINNER: {
             return {
                 ...state,
                 spinner: true
@@ -29,7 +29,7 @@ export const LeadDetailReducer = (state = initialState, action) => {
             }
         }
 
-        case HIDE_SPINNER: {
+        case HIDE_MODAL_SPINNER: {
             return {
                 ... state,
                 spinner: false
@@ -39,9 +39,11 @@ export const LeadDetailReducer = (state = initialState, action) => {
         case HIDE_MODAL: {
             return {
                 ...state,
-                modal: false
+                modal: false,
+                lead: null
             }
         }
+
 
         default: {
             return state;

@@ -1,61 +1,83 @@
-export default class LeadService {
+import axios from 'axios';
 
-     leadList = [
-        {
-            id: 1,
-            date: '01-01-2019',
-            fio: 'Иванов Иван',
-            phone: '123456789',
-            source: 'some source',
-            status: 'Не обработан',
-            supervisor: 'Прунькин Михаил',
-            responsible: 'Виктория Сарко',
-            email: 'test@gg.gg',
-            address: 'г Новосибирск. ул. Морская 15-88',
-            comment: 'some'
-        },
-        {
-            id: 2,
-            date: '03-01-2019',
-            fio: 'Петров Петр',
-            phone: '123456789',
-            source: 'some source',
-            status: 'Не обработан',
-            supervisor: 'Прунькин Михаил',
-            responsible: 'Виктория Сарко',
-            email: '123@gg.gg',
-            address: 'г Новосибирск. ул. Морская 15-88',
-            comment: ''
-        },
-        {
-            id: 3,
-            date: '05-01-2019',
-            fio: 'Сидоров Сидр',
-            phone: '123456789',
-            source: 'some source',
-            status: 'Не обработан',
-            supervisor: 'Прунькин Михаил',
-            responsible: 'Виктория Сарко',
-            email: '333@gg.gg',
-            address: 'г Новосибирск. ул. Морская 15-88',
-            comment: ''
-        }
-    ];
+export default class LeadService {
+    url = 'http://localhost:3000';
+
 
     getLeadList = () => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(this.leadList);
-            }, 1500)
-        });
+        return axios({
+            method: 'get',
+            url: `${this.url}/leadList`,
+            timeout: 15000,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(response => {
+            return response.data;
+        })
     };
 
     getLeadById = (id) => {
-        return new Promise((resolve) => {
-            const foundLead = this.leadList.find(it => it.id === id);
-            setTimeout(() => {
-                resolve(foundLead);
-            }, 1500)
-        });
+        return axios({
+            method: 'get',
+            url: `${this.url}/leadList/${id}`,
+            timeout: 15000,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(response => {
+            return response.data;
+        })
     };
+
+    addLead = (lead) => {
+        const id = Math.floor(Math.random() * 100);
+        return axios({
+            method: 'post',
+            url: `${this.url}/leadList`,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: {
+                "id": id,
+                "date": lead.date,
+                "fio": lead.fio,
+                "phone": lead.phone,
+                "source": lead.source,
+                "status": lead.status,
+                "supervisor": lead.supervisor,
+                "responsible": lead.responsible,
+                "email": lead.email,
+                "address": lead.address,
+                "comment": lead.comment
+            }
+        }).then(response => {
+            return response.data.lead
+        })
+    };
+
+    editLead = (id, lead) => {
+        return axios({
+            method: 'put',
+            url: `${this.url}/leadList/${id}`,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: {
+                "id": id,
+                "date": lead.date,
+                "fio": lead.fio,
+                "phone": lead.phone,
+                "source": lead.source,
+                "status": lead.status,
+                "supervisor": lead.supervisor,
+                "responsible": lead.responsible,
+                "email": lead.email,
+                "address": lead.address,
+                "comment": lead.comment
+            }
+        }).then(response => {
+            return response.data.lead
+        })
+    }
 }

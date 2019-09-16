@@ -7,18 +7,19 @@ import LeadDetailCard from "./LeadDetailCard/LeadDetailCard";
 export default class LeadDetail extends Component{
 
     render() {
-        const {lead, spinner, modal, hideModal} = this.props;
-        if (spinner) return <Spinner/>;
+        const {lead, spinner, modal, hideModal, addLead, editLead} = this.props;
         if (!modal) return null;
-        console.log(lead);
         return (
             <Fragment>
                 <Overlay/>
+                {spinner ? <Spinner/> : ''}
                 <div className="lead-detail-modal">
                     <LeadDetailCard
                         lead = {lead}
+                        addLead = {addLead}
+                        editLead = {editLead}
+                        hideModal = {hideModal}
                     />
-                    <button className="btn btn-primary" onClick={hideModal}>Close</button>
                 </div>
             </Fragment>
         )

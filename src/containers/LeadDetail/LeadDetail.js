@@ -1,6 +1,6 @@
 import { connect } from 'react-redux';
 import LeadDetail from "../../components/LeadDetail/LeadDetail";
-import {hideModal} from "./actions";
+import {addLead, editLead, hideModal} from "./actions";
 
 
 function mapStateToProps(state) {
@@ -13,7 +13,9 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        hideModal: () => dispatch(hideModal())
+        hideModal: () => dispatch(hideModal()),
+        addLead: (lead) => dispatch(addLead(lead)),
+        editLead: (lead) => dispatch(editLead(lead))
     }
 }
 

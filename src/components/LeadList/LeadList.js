@@ -16,10 +16,12 @@ export default class LeadList extends Component{
 
 
     render() {
-        const { list } = this.props;
-        if (!list.length) return <Spinner/>;
+        const { list, addLeadCardOpen, spinner } = this.props;
+        if (!list.length) return <Spinner/>
         return (
             <div>
+                {spinner ? <Spinner/> : ''}
+                <button className="btn btn-success btn-sm" onClick={addLeadCardOpen}>Добавить лид</button>
                 <LeadTable list = {list} onLeadClick={this.onLeadClick}/>
             </div>
         )

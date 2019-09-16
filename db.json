@@ -1,0 +1,56 @@
+{
+  "leadList": [
+    {
+      "id": 1,
+      "date": "01-01-2019",
+      "fio": "Иванов Иван",
+      "phone": "123456789",
+      "source": "some source",
+      "status": "Не обработан",
+      "supervisor": "Прунькин Михаил",
+      "responsible": "Виктория Сарко",
+      "email": "test@gg.gg",
+      "address": "г Новосибирск. ул. Морская 15-88",
+      "comment": "some"
+    },
+    {
+      "id": 2,
+      "date": "03-01-2019",
+      "fio": "Петров Петр",
+      "phone": "123456789",
+      "source": "some source",
+      "status": "Не обработан",
+      "supervisor": "Прунькин Михаил",
+      "responsible": "Виктория Сарко",
+      "email": "123@gg.gg",
+      "address": "г Новосибирск. ул. Морская 15-88",
+      "comment": ""
+    },
+    {
+      "id": 58,
+      "date": "09-03-2019",
+      "fio": "Федотов федор",
+      "phone": "913843028",
+      "source": "КЧВ",
+      "status": "Не обработан",
+      "supervisor": "Мелешко евгений",
+      "responsible": "Чертенкова Наталья",
+      "email": "",
+      "address": "",
+      "comment": ""
+    },
+    {
+      "id": 56,
+      "date": "16-09-2019",
+      "fio": "Иванов Иван",
+      "phone": "9137843028",
+      "source": "КЧВ",
+      "status": "Не обработан",
+      "supervisor": " Бочарников Максим",
+      "responsible": "Еремина Екатерина",
+      "email": "test@mail.ru",
+      "address": "Есенина 8",
+      "comment": "Привеи"
+    }
+  ]
+}
