@@ -8,6 +8,7 @@ import TableRow from '@material-ui/core/TableRow';
 import Paper from '@material-ui/core/Paper';
 
 import './LeadTable.css';
+import {formatDate} from "../../../utils/timeUtils";
 
 const useStyles = makeStyles(theme => ({
     root: {
@@ -46,13 +47,13 @@ const LeadTable = (props) => {
                             <TableCell component="th" scope="row">
                                 {item.id}
                             </TableCell>
-                            <TableCell align="center">{item.date}</TableCell>
-                            <TableCell align="center">{item.fio}</TableCell>
-                            <TableCell align="center">{item.phone}</TableCell>
-                            <TableCell align="center">{item.source}</TableCell>
-                            <TableCell align="center">{item.status}</TableCell>
-                            <TableCell align="center">{item.supervisor}</TableCell>
-                            <TableCell align="center">{item.responsible}</TableCell>
+                            <TableCell title={item.date} align="center">{formatDate(item.date, 'shortDate')}</TableCell>
+                            <TableCell title={item.fio} align="center">{item.fio}</TableCell>
+                            <TableCell title={item.phone} align="center">{item.phone}</TableCell>
+                            <TableCell title={item.source} align="center">{item.source}</TableCell>
+                            <TableCell title={item.status} align="center">{item.status}</TableCell>
+                            <TableCell title={item.supervisor} align="center">{item.supervisor}</TableCell>
+                            <TableCell title={item.responsible} align="center">{item.responsible}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

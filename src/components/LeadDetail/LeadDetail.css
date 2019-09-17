@@ -15,10 +15,10 @@
     z-index: 2;
 }
 
-.form-validation-error {
-    display: block;
-    margin-left: 44%;
-    margin-top: -1rem;
-    color: #ff0000;
-    font-size: .8rem;
+.lead-detail-header {
+    font-weight: bold;
+    padding: 1rem;
+    margin-bottom: 2rem;
+
+    border-bottom: 1px solid #d3d3d3;
 }

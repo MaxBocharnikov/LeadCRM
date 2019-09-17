@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {formatDate} from "../utils/timeUtils";
 
 export default class LeadService {
     url = 'http://localhost:3030';
@@ -40,7 +41,7 @@ export default class LeadService {
             },
             data: {
                 "id": id,
-                "date": lead.date,
+                "date": formatDate(new Date().toString(), 'date'),
                 "fio": lead.fio,
                 "phone": lead.phone,
                 "source": lead.source,

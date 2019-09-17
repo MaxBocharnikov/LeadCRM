@@ -33,6 +33,7 @@ export default class LeadDetail extends Component{
                 <Overlay/>
                 {spinner ? <Spinner/> : ''}
                 <div className="lead-detail-modal">
+                    <div className="lead-detail-header">{lead ? `Редактирование лида с id: ${lead.id}` : `Добавление нового лида`}</div>
                     <LeadDetailCard
                         lead = {lead}
                         addLead = {addLead}
@@ -40,11 +41,8 @@ export default class LeadDetail extends Component{
                         submitFromOutside={this.state.submitFromOutside}
                         unSubmitForm = {this.unSubmitForm}
                     />
-                    {!lead
-                        ? <button onClick={this.submitForm} className="btn btn-success">Добавить</button>
-                        : <button onClick={this.submitForm} className="btn btn-success">Редактировать</button>
-                    }
-                    <button className="btn btn-primary" onClick={hideModal}>Close</button>
+                    <button onClick={this.submitForm} className="btn btn-success">{lead ? 'Сохранить' : 'Добавить'}</button>
+                    <button className="btn btn-primary" onClick={hideModal}>Закрыть</button>
                 </div>
             </Fragment>
         )

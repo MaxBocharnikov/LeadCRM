@@ -1,7 +1,6 @@
 import React, {Component, Fragment} from 'react';
 import './LeadDetailCard.css';
 
-
 export default class LeadDetailCard extends Component{
     state = {
         lead: {
@@ -202,25 +201,33 @@ export default class LeadDetailCard extends Component{
                                <label className="form-group-label" htmlFor="lead-id">ID:</label>
                                <input
                                    title={id}
-                                   disabled id="lead-id" type="text"
+                                   disabled
+                                   id="lead-id"
+                                   type="text"
                                    className="form-control form-control-custom"
                                    value={id}/>
                            </div>
                            <div className="form-group form-group-custom">
                                <label className="form-group-label" htmlFor="lead-source">Источник:</label>
-                               <input
+                               <select
                                    title={source}
-                                   id="lead-source" type="text"
+                                   id="lead-source"
+                                   type="text"
                                    className="form-control form-control-custom"
-                                   value={source}
                                    onChange={this.onSourceChange}
-                               />
+                                   value={source || 'Не обработан'}>
+                                   <option value="Не обработан">Не обработан</option>
+                                   <option value="В обработке">В обработке</option>
+                                   <option value="Оформление заказа. Оформление">Оформление заказа. Оформление</option>
+                                   <option value="Обработан. Отказ">Обработан. Отказ</option>
+                               </select>
                            </div>
                            <div className="form-group form-group-custom">
                                <label className="form-group-label" htmlFor="lead-fio">ФИО:</label>
                                <input
                                    title={fio}
-                                   id="lead-fio" type="text"
+                                   id="lead-fio"
+                                   type="text"
                                    className="form-control form-control-custom"
                                    value={fio}
                                    onChange={this.onFioChange}/>
@@ -279,6 +286,7 @@ export default class LeadDetailCard extends Component{
                                    title={date}
                                    id="lead-date"
                                    type="text"
+                                   disabled
                                    className="form-control form-control-custom"
                                    value={date}
                                    onChange={this.onDateChange}
