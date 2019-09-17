@@ -1,8 +1,11 @@
 .lead-detail-modal {
     position: fixed;
+    display: flex;
+    flex-direction: column;
 
     width: 60vw;
-    height: 85vh;
+    /*height: 85vh;*/
+    height: 70vh;
 
     top: 0;
     left: 0;
@@ -18,7 +21,15 @@
 .lead-detail-header {
     font-weight: bold;
     padding: 1rem;
-    margin-bottom: 2rem;
-
     border-bottom: 1px solid #d3d3d3;
+}
+
+.lead-detail-footer {
+    display: flex;
+    justify-content: flex-end;
+    margin: 1rem 0;
+}
+
+.lead-btn {
+    margin-right: .5rem;
 }

@@ -193,7 +193,7 @@ export default class LeadDetailCard extends Component{
         const fioValidationError = <span className="form-validation-error">ФИО не может быть пустым</span>;
 
         return (
-           <form>
+           <form className="form">
                <div className="form-group">
                    <div className="row">
                        <div className="col-sm-6 block">

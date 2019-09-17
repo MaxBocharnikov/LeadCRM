@@ -41,8 +41,10 @@ export default class LeadDetail extends Component{
                         submitFromOutside={this.state.submitFromOutside}
                         unSubmitForm = {this.unSubmitForm}
                     />
-                    <button onClick={this.submitForm} className="btn btn-success">{lead ? 'Сохранить' : 'Добавить'}</button>
-                    <button className="btn btn-primary" onClick={hideModal}>Закрыть</button>
+                    <div className="lead-detail-footer">
+                        <button onClick={this.submitForm} className="btn btn-success lead-btn">{lead ? 'Сохранить' : 'Добавить'}</button>
+                        <button className="btn btn-primary lead-btn" onClick={hideModal}>Закрыть</button>
+                    </div>
                 </div>
             </Fragment>
         )
