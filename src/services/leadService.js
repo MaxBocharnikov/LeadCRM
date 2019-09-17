@@ -1,7 +1,7 @@
 import axios from 'axios';
 
 export default class LeadService {
-    url = 'http://localhost:3000';
+    url = 'http://localhost:3030';
 
 
     getLeadList = () => {

@@ -13,8 +13,8 @@ function* fetchLeadDetail(action) {
     yield put(showListSpinner());
     const result = yield call(leadService.getLeadById, action.payload.id);
     yield put(saveLeadDetail(result));
-    yield put (hideListSpinner());
-    yield put (showModal());
+    yield put(hideListSpinner());
+    yield put(showModal());
 }
 
 function* addLead (action) {
