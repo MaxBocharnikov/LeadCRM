@@ -17,7 +17,6 @@ export default class LeadList extends Component{
 
     render() {
         const { list, addLeadCardOpen, spinner } = this.props;
-        if (!list.length) return <Spinner/>
         return (
             <div>
                 {spinner ? <Spinner/> : ''}
