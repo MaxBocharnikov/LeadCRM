@@ -5,10 +5,13 @@ import leadListWatcher from "../containers/LeadList/saga";
 import { all } from 'redux-saga/effects';
 import leadDetailWatcher from "../containers/LeadDetail/saga";
 import {LeadDetailReducer} from "../containers/LeadDetail/reducer";
+import {FilterReducer} from "../containers/Filter/reducer";
+
 
 const reducers = combineReducers({
     leadList: LeadListReducer,
-    leadDetail: LeadDetailReducer
+    leadDetail: LeadDetailReducer,
+    filter: FilterReducer
 });
 
 function* sagas() {

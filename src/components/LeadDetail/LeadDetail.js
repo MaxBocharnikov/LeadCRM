@@ -1,5 +1,5 @@
 import React, {Component, Fragment} from 'react';
-import './LeadDetail.css';
+import './LeadDetail.scss';
 import Spinner from "../Spinner/Spinner";
 import Overlay from "../Overlay/Overlay";
 import LeadDetailCard from "./LeadDetailCard/LeadDetailCard";

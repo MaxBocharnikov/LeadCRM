@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-import './LeadList.css';
+import './LeadList.scss';
 import Spinner from "../Spinner/Spinner";
 import LeadTable from "./LeadTable/LeadTable";
 

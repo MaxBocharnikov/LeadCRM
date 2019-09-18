@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from 'react';
 import InputElement from 'react-input-mask';
-import './LeadDetailCard.css';
+import './LeadDetailCard.scss';
+import {formatPhoneUtil} from "../../../utils/phoneFormatUtils";
 
 export default class LeadDetailCard extends Component{
     state = {
@@ -170,8 +171,8 @@ export default class LeadDetailCard extends Component{
         }
     };
 
-    fommatPhone = () => {
-        let formatedPhone = this.state.lead.phone.slice(2).replace(/[\(\)\-\s]+/g, '');
+    formatPhone = () => {
+        let formatedPhone = formatPhoneUtil(this.state.lead.phone);
         this.setState({
             lead: {
                 ...this.state.lead,
@@ -181,7 +182,7 @@ export default class LeadDetailCard extends Component{
     }
 
     async onSubmit() {
-        await this.fommatPhone();
+        await this.formatPhone();
         const isFioValid = this.validateFio();
         const isPhoneValid = this.validatePhone();
 

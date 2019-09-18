@@ -3,7 +3,7 @@ import {FETCH_LEAD_LIST, HIDE_LIST_SPINNER, SAVE_LEAD_LIST, SHOW_LIST_SPINNER} f
 
 const fetchLeadList = () => {
         return {
-            type: FETCH_LEAD_LIST
+            type: FETCH_LEAD_LIST,
         }
 };
 

@@ -1,0 +1,28 @@
+.filter-form {
+    display: flex;
+    justify-content: space-between;
+
+    .col-sm-3:first-child {
+        padding-left: 0;
+    }
+
+    label,
+    input,
+    input::placeholder {
+        font-size: .8rem;
+    }
+
+    label {
+        margin-top: .5rem;
+        margin-bottom: .3rem;
+        font-weight: 600;
+    }
+}
+
+.filter-form-buttons {
+    display: flex;
+    align-items: center;
+    button {
+        margin: .3rem;
+    }
+}

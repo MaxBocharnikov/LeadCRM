@@ -5,7 +5,8 @@ export default class LeadService {
     url = 'http://localhost:3030';
 
 
-    getLeadList = () => {
+    getLeadList = (filter) => {
+        console.log('serivce', filter);
         return axios({
             method: 'get',
             url: `${this.url}/leadList`,

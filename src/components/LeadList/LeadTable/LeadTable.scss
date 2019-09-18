@@ -1,0 +1,15 @@
+tbody {
+    tr {
+        cursor: pointer;
+        &:nth-child(even) {
+            background: lightgray;
+        }
+    }
+
+    td {
+        font-size: .8rem !important;
+        max-width: 10rem;
+        overflow: hidden;
+        text-overflow: ellipsis;
+    }
+}
