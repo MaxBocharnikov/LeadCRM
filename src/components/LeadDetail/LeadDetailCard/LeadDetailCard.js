@@ -1,14 +1,15 @@
 import React, {Component, Fragment} from 'react';
+import InputElement from 'react-input-mask';
 import './LeadDetailCard.css';
 
 export default class LeadDetailCard extends Component{
     state = {
         lead: {
             id: '',
-            source: '',
+            source: 'Не выбран',
             fio: '',
             phone: '',
-            status: '',
+            status: 'Не обработан',
             supervisor: '',
             responsible: '',
             date: '',
@@ -39,6 +40,7 @@ export default class LeadDetailCard extends Component{
                     comment: lead.comment
                 }
             });
+
         }
     }
 
@@ -154,22 +156,32 @@ export default class LeadDetailCard extends Component{
         }
     };
 
-    validatePhone = () => {
-        if (this.state.lead.phone.length !== 10) {
+     validatePhone = () => {
+        if (this.state.lead.phone.length !== 10 || isNaN(this.state.lead.phone)) {
             this.setState({
                 phoneError: true
-            })
+            });
             return false;
         } else {
             this.setState({
                 phoneError: false
-            })
+            });
             return true;
         }
+    };
+
+    fommatPhone = () => {
+        let formatedPhone = this.state.lead.phone.slice(2).replace(/[\(\)\-\s]+/g, '');
+        this.setState({
+            lead: {
+                ...this.state.lead,
+                phone:formatedPhone
+            }
+        });
     }
 
-
-    onSubmit = () => {
+    async onSubmit() {
+        await this.fommatPhone();
         const isFioValid = this.validateFio();
         const isPhoneValid = this.validatePhone();
 
@@ -211,15 +223,16 @@ export default class LeadDetailCard extends Component{
                                <label className="form-group-label" htmlFor="lead-source">Источник:</label>
                                <select
                                    title={source}
-                                   id="lead-source"
+                                   id="lead-status"
                                    type="text"
                                    className="form-control form-control-custom"
                                    onChange={this.onSourceChange}
-                                   value={source || 'Не обработан'}>
-                                   <option value="Не обработан">Не обработан</option>
-                                   <option value="В обработке">В обработке</option>
-                                   <option value="Оформление заказа. Оформление">Оформление заказа. Оформление</option>
-                                   <option value="Обработан. Отказ">Обработан. Отказ</option>
+                                   value={source || 'Не выбран'}>
+                                   <option value="Не выбран">Не выбран</option>
+                                   <option value="Ашан">Ашан</option>
+                                   <option value="КЧВ">КЧВ</option>
+                                   <option value="Роял">Роял Парк</option>
+                                   <option value="Икея">Икея</option>
                                </select>
                            </div>
                            <div className="form-group form-group-custom">
@@ -235,28 +248,33 @@ export default class LeadDetailCard extends Component{
                            {this.state.fioError ? fioValidationError : '' }
                            <div className="form-group form-group-custom">
                                <label className="form-group-label" htmlFor="lead-phone">Телефон:</label>
-                               <input
+                               <InputElement
                                    title={phone}
                                    id="lead-phone"
                                    type="text"
                                    className="form-control form-control-custom"
                                    value={phone}
                                    onChange={this.onPhoneChange}
-                               />
+                                   mask="+7 (999) 999-99-99"
+                                   placeholder="+7 (___) __-__-__"/>
                            </div>
                            {this.state.phoneError ? phoneValidationError : ''}
                        </div>
                        <div className="col-sm-6 block">
                            <div className="form-group form-group-custom">
                                <label className="form-group-label" htmlFor="lead-status">Статус:</label>
-                               <input
+                               <select
                                    title={status}
-                                   id="lead-status"
+                                   id="lead-source"
                                    type="text"
                                    className="form-control form-control-custom"
-                                   value={status}
                                    onChange={this.onStatusChange}
-                               />
+                                   value={status}>
+                                   <option value="Не обработан">Не обработан</option>
+                                   <option value="В обработке">В обработке</option>
+                                   <option value="Оформление заказа. Оформление">Оформление заказа. Оформление</option>
+                                   <option value="Обработан. Отказ">Обработан. Отказ</option>
+                               </select>
                            </div>
                            <div className="form-group form-group-custom">
                                <label className="form-group-label" htmlFor="lead-supervisior">Супервайзер:</label>
