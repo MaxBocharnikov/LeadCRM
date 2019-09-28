@@ -1,43 +1,85 @@
+import axios from 'axios';
+import {formatDate} from "../utils/timeUtils";
+
 export default class LeadService {
+    url = 'http://localhost:3030';
 
-     leadList = [
-        {
-            id: 1,
-            date: '01-01-2019',
-            fio: 'Иванов Иван',
-            phone: '123456789',
-            source: 'some source',
-            status: 'Не обработан',
-            supervisor: 'Прунькин Михаил',
-            responsible: 'Виктория Сарко'
-        },
-        {
-            id: 2,
-            date: '03-01-2019',
-            fio: 'Петров Петр',
-            phone: '123456789',
-            source: 'some source',
-            status: 'Не обработан',
-            supervisor: 'Прунькин Михаил',
-            responsible: 'Виктория Сарко'
-        },
-        {
-            id: 3,
-            date: '05-01-2019',
-            fio: 'Сидоров Сидр',
-            phone: '123456789',
-            source: 'some source',
-            status: 'Не обработан',
-            supervisor: 'Прунькин Михаил',
-            responsible: 'Виктория Сарко'
-        }
-    ];
 
-    getLeadList = () => {
-        return new Promise((resolve) => {
-            setTimeout(() => {
-                resolve(this.leadList);
-            }, 1500)
-        });
+    getLeadList = (filter) => {
+        console.log('serivce', filter);
+        return axios({
+            method: 'get',
+            url: `${this.url}/leadList`,
+            timeout: 15000,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(response => {
+            return response.data;
+        })
+    };
+
+    getLeadById = (id) => {
+        return axios({
+            method: 'get',
+            url: `${this.url}/leadList/${id}`,
+            timeout: 15000,
+            headers: {
+                "Content-Type": "application/json"
+            }
+        }).then(response => {
+            return response.data;
+        })
+    };
+
+    addLead = (lead) => {
+        const id = Math.floor(Math.random() * 100);
+        return axios({
+            method: 'post',
+            url: `${this.url}/leadList`,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: {
+                "id": id,
+                "date": formatDate(new Date().toString(), 'date'),
+                "fio": lead.fio,
+                "phone": lead.phone,
+                "source": lead.source,
+                "status": lead.status,
+                "supervisor": lead.supervisor,
+                "responsible": lead.responsible,
+                "email": lead.email,
+                "address": lead.address,
+                "comment": lead.comment
+            }
+        }).then(response => {
+            return response.data.lead
+        })
+    };
+
+    editLead = (id, lead) => {
+        return axios({
+            method: 'put',
+            url: `${this.url}/leadList/${id}`,
+            headers: {
+                "Content-Type": "application/json"
+            },
+            data: {
+                "id": id,
+                "date": lead.date,
+                "fio": lead.fio,
+                "phone": lead.phone,
+                "source": lead.source,
+                "status": lead.status,
+                "supervisor": lead.supervisor,
+                "responsible": lead.responsible,
+                "email": lead.email,
+                "address": lead.address,
+                "comment": lead.comment
+            }
+        }).then(response => {
+            return response.data.lead
+        })
     }
 }

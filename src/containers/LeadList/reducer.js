@@ -1,7 +1,8 @@
-import {SAVE_LEAD_LIST} from "./constants";
+import {HIDE_LIST_SPINNER, SAVE_LEAD_LIST, SHOW_LIST_SPINNER} from "./constants";
 
 const initialState = {
     list: [],
+    spinner: true
 };
 
 export const LeadListReducer = (state = initialState, action) => {
@@ -10,6 +11,20 @@ export const LeadListReducer = (state = initialState, action) => {
             return {
                 ...state,
                 list: action.payload.list
+            }
+        }
+
+        case SHOW_LIST_SPINNER: {
+            return {
+                ...state,
+                spinner: true
+            }
+        }
+
+        case HIDE_LIST_SPINNER: {
+            return {
+                ...state,
+                spinner: false
             }
         }
 
