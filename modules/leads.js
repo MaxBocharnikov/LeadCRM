@@ -1,6 +1,7 @@
 const express = require('express')
 const router = express.Router()
 const {getLeadList} = require('../sql/leads');
+const authorize = require('../middlewares/authorize');
 
 router.get('/getLeadList', authorize, function (req, res, next) {
     getLeadList()

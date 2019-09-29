@@ -3,7 +3,7 @@ import {
     ON_DATE_CHANGE, ON_FIO_CHANGE, ON_PHONE_CHANGE, ON_RESPONSIBLE_CHANGE, ON_SOURCE_CHANGE,
     ON_STATUS_CHANGE,
     ON_SUPERVISOR_CHANGE, RESET_FILTER
-} from "./constants";
+} from './constants';
 
 const onPhoneChange = (event)=> {
     return {

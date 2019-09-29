@@ -1,12 +1,11 @@
 import React from 'react';
-import LeadListContainer from "./containers/LeadList/LeadList";
+import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import Provider from "react-redux/es/components/Provider";
 import {configureStore} from "./store/configureStore";
-import LeadDetailContainer from "./containers/LeadDetail/LeadDetail";
-import FilterContainer from "./containers/Filter/Filter";
-import Header from "./components/Header/Header";
-import './App.scss'
+import Home from './components/Pages/Home/Home';
+import AuthContainer from './containers/Auth/Auth';
 
+import './App.scss'
 
 export const store = configureStore();
 
@@ -15,10 +14,12 @@ function App() {
   return (
      <main className="container">
          <Provider store={store}>
-             <Header/>
-             <FilterContainer/>
-             <LeadListContainer/>
-             <LeadDetailContainer/>
+             <Router>
+                 <Switch>
+                     <Route path="/" exact component={AuthContainer}/>
+                     <Route path="/home" component={Home}/>
+                 </Switch>
+             </Router>
          </Provider>
      </main>
   );
