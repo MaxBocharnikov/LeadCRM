@@ -10,6 +10,10 @@ export default class Auth extends React.Component{
       password: ''
     };
 
+    componentDidMount() {
+       if(localStorage.getItem('JWT')) this.props.onSuccessLogin();
+    }
+
     onChangeHandle = (e) => {
       this.setState({
           [e.target.name]: e.target.value

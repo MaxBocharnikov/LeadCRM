@@ -4,8 +4,9 @@ const authorize = require('../middlewares/authorize');
 const {getWorkerByUserId} = require('../sql/workers');
 
 router.get('/getWorkerByUserId', authorize, (req, res, next) => {
+    console.log(req.currentUser.id);
     getWorkerByUserId(req.currentUser.id)
-        .then(() => res.json());
+        .then((worker) => res.json(worker));
 });
 
 module.exports = router;

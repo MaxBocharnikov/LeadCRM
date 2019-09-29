@@ -2,10 +2,11 @@ import React from 'react';
 import { Switch, Route, BrowserRouter as Router } from 'react-router-dom';
 import Provider from "react-redux/es/components/Provider";
 import {configureStore} from "./store/configureStore";
-import Home from './components/Pages/Home/Home';
 import AuthContainer from './containers/Auth/Auth';
+import HomeContainer from './containers/Home/Home';
 
 import './App.scss'
+
 
 export const store = configureStore();
 
@@ -17,7 +18,7 @@ function App() {
              <Router>
                  <Switch>
                      <Route path="/" exact component={AuthContainer}/>
-                     <Route path="/home" component={Home}/>
+                     <Route path="/home" component={HomeContainer}/>
                  </Switch>
              </Router>
          </Provider>

@@ -1,14 +1,19 @@
-import {GET_CURRENT_USER} from './constants';
+import {FETCH_WORKER, SAVE_WORKER} from './constants';
 
-const getCurrentUser = (token) => {
+const fetchWorker = () => {
     return {
-        type: GET_CURRENT_USER,
-        payload: {
-            token
-        }
+        type: FETCH_WORKER,
     }
-}
+};
+
+const saveWorker = (worker) => {
+    return {
+        type: SAVE_WORKER,
+        payload: worker
+    }
+};
 
 export {
-    getCurrentUser
+    fetchWorker,
+    saveWorker
 }

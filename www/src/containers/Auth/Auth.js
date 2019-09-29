@@ -1,5 +1,5 @@
 import {connect} from 'react-redux';
-import {login, onLogin} from './action';
+import {login, onSuccessLogin} from './action';
 import Auth from '../../components/Pages/Auth/Auth';
 
 function mapStateToProps(state) {
@@ -11,7 +11,8 @@ function mapStateToProps(state) {
 
 function mapDispatchProps(dispatch) {
     return {
-        login: (data) => dispatch(login(data))
+        login: (data) => dispatch(login(data)),
+        onSuccessLogin: () => dispatch(onSuccessLogin())
     }
 }
 

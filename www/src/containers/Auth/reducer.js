@@ -1,4 +1,4 @@
-import {ON_ERROR_LOGIN, ON_SUCCESS_LOGIN} from './constants';
+import {LOGOUT, ON_ERROR_LOGIN, ON_SUCCESS_LOGIN} from './constants';
 
 const initialState = {
     isAuth: false,
@@ -10,6 +10,7 @@ export const AuthReducer = (state = initialState, action) => {
 
         case ON_SUCCESS_LOGIN: {
             return {
+                ...state,
                 isAuth: true
             }
         }
@@ -18,6 +19,13 @@ export const AuthReducer = (state = initialState, action) => {
             return {
                 ...state,
                 isError: true
+            }
+        }
+
+        case LOGOUT: {
+            return {
+                ...state,
+                isAuth: false
             }
         }
 

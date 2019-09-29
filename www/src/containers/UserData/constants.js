@@ -1,1 +1,2 @@
-export const GET_CURRENT_USER = 'GET_CURRENT_USER';
+export const FETCH_WORKER = 'FETCH_WORKER';
+export const SAVE_WORKER = 'SAVE_WORKER';
