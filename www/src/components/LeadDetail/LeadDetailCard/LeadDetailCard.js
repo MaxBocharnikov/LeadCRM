@@ -204,7 +204,6 @@ export default class LeadDetailCard extends Component{
         const {id, source, fio, phone, status, supervisor, responsible, date, email, address, comment} = this.state.lead;
         const phoneValidationError = <span className="form-validation-error">Введите корректный номер телефона</span>;
         const fioValidationError = <span className="form-validation-error">ФИО не может быть пустым</span>;
-
         return (
            <form className="form">
                <div className="form-group">

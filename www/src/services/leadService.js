@@ -1,18 +1,22 @@
 import axios from 'axios';
-import {formatDate} from "../utils/timeUtils";
+import {formatDate} from '../utils/timeUtils';
+import {AUTH_TYPE, TOKEN_STORAGE} from '../constatnts/token';
 
 export default class LeadService {
     url = 'http://localhost:3030';
 
 
     getLeadList = (filter) => {
-        console.log('serivce', filter);
         return axios({
-            method: 'get',
-            url: `${this.url}/leadList`,
+            method: 'post',
+            url: 'http://localhost:5000/leads/getLeadList',
             timeout: 15000,
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `${AUTH_TYPE} ${localStorage.getItem(TOKEN_STORAGE)}`
+            },
+            data: {
+                filter
             }
         }).then(response => {
             return response.data;

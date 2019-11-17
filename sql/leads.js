@@ -8,6 +8,16 @@ function getLeadList() {
         })
 }
 
+function getOwnLeadsList(currentUser) {
+    return knex('leads')
+        .select('*')
+        .where('responsible', currentUser.workerID)
+        .then(leads => {
+            return leads;
+        })
+}
+
 module.exports = {
     getLeadList,
+    getOwnLeadsList
 }

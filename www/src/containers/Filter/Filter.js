@@ -15,7 +15,11 @@ function mapStateToProps(state) {
         source: state.filter.source,
         status: state.filter.status,
         supervisor: state.filter.supervisor,
-        responsible: state.filter.responsible
+        responsible: state.filter.responsible,
+        availableWorkers: state.userData.availableWorkers,
+        availableSources: state.userData.sources,
+        availableStatuses: state.userData.statuses,
+        currentWorker: state.userData.worker
     }
 }
 
