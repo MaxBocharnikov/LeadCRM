@@ -7,7 +7,11 @@ function mapStateToProps(state) {
     return {
         spinner: state.leadDetail.spinner,
         modal: state.leadDetail.modal,
-        lead: state.leadDetail.lead
+        lead: state.leadDetail.lead,
+        availableWorkers: state.userData.availableWorkers,
+        availableSources: state.userData.sources,
+        availableStatuses: state.userData.statuses,
+        currentWorker: state.userData.worker
     }
 }
 

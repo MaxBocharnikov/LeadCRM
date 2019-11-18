@@ -9,16 +9,21 @@ function filterLeads(leads, filter) {
     if(filter.source) filtered = filtered.filter(lead => lead.source == filter.source);
     if(filter.responsible) filtered = filtered.filter(lead => lead.responsible == filter.responsible);
     if(filter.date){
-        console.log(filtered);
         filtered = filtered.filter(lead => {
-            console.log(moment(lead.creation_date).format('DD-MM-YYYY'));
-            console.log(filter.date);
             return moment(lead.creation_date).format('DD-MM-YYYY') == filter.date;
         });
     }
     return filtered;
 }
 
+function formatPhoneUtil(phone){
+    if(phone && phone.length > 10) {
+        return phone.slice(2).replace(/[\(\)\-\s]+/g, '');
+    }
+    return phone;
+};
+
 module.exports = {
-    filterLeads
+    filterLeads,
+    formatPhoneUtil
 }

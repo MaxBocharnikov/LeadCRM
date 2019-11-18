@@ -10,4 +10,15 @@
     border-bottom: 1px solid #EFEFEF;
   }
 
+  .header-worker {
+    display: flex;
+    align-items: baseline;
+    p {
+      margin-right: 1rem;
+    }
+    i {
+      cursor: pointer;
+    }
+  }
+
 }

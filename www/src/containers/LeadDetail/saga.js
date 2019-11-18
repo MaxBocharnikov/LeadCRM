@@ -5,6 +5,7 @@ import {
     hideModal, hideModalSpinner, saveLeadDetail, showModal, showModalSpinner
 } from './actions';
 import {fetchLeadList, hideListSpinner, showListSpinner} from "../LeadList/actions";
+import {formatPhoneUtil} from '../../utils/phoneFormatUtils';
 
 
 const leadService = new LeadService();
@@ -27,7 +28,7 @@ function* addLead (action) {
 
 function* editLead (action) {
     yield put(showModalSpinner());
-    yield call(leadService.editLead, action.payload.lead.id, action.payload.lead);
+    yield call(leadService.editLead, action.payload.lead);
     yield put(fetchLeadList());
     yield put(hideModalSpinner());
     yield put(hideModal());

@@ -1,18 +1,20 @@
 import React, {Component, Fragment} from 'react';
 import InputElement from 'react-input-mask';
 import './LeadDetailCard.scss';
-import {formatPhoneUtil} from "../../../utils/phoneFormatUtils";
+import {formatPhoneUtil} from '../../../utils/phoneFormatUtils';
+import {getAvailableManagers, getAvailableSupervisors} from '../../../utils/workers';
+import {formatDate} from '../../../utils/timeUtils';
 
 export default class LeadDetailCard extends Component{
     state = {
         lead: {
             id: '',
-            source: 'Не выбран',
+            source: undefined,
             fio: '',
             phone: '',
-            status: 'Не обработан',
-            supervisor: '',
-            responsible: '',
+            status: undefined,
+            supervisor: undefined,
+            responsible: undefined,
             date: '',
             email: '',
             address: '',
@@ -28,14 +30,14 @@ export default class LeadDetailCard extends Component{
         if (lead) {
             this.setState({
                 lead: {
-                    id: lead.id,
+                    id: lead.lead_id,
                     source: lead.source,
                     fio: lead.fio,
                     phone: lead.phone,
                     status: lead.status,
                     supervisor: lead.supervisor,
                     responsible: lead.responsible,
-                    date: lead.date,
+                    date: formatDate(lead.creation_date, 'date'),
                     email: lead.email,
                     address: lead.address,
                     comment: lead.comment
@@ -158,7 +160,11 @@ export default class LeadDetailCard extends Component{
     };
 
      validatePhone = () => {
-        if (this.state.lead.phone.length !== 10 || isNaN(this.state.lead.phone)) {
+        let phone = this.state.lead.phone;
+        if(phone.length > 10) {
+            phone = formatPhoneUtil(phone);
+        }
+        if (phone.length !== 10 || isNaN(phone)) {
             this.setState({
                 phoneError: true
             });
@@ -181,8 +187,7 @@ export default class LeadDetailCard extends Component{
         });
     }
 
-    async onSubmit() {
-        await this.formatPhone();
+      onSubmit() {
         const isFioValid = this.validateFio();
         const isPhoneValid = this.validatePhone();
 
@@ -200,10 +205,12 @@ export default class LeadDetailCard extends Component{
     };
 
     render() {
-        const {lead} = this.props;
+        const {lead, availableWorkers, availableSources, availableStatuses, currentWorker} = this.props;
         const {id, source, fio, phone, status, supervisor, responsible, date, email, address, comment} = this.state.lead;
         const phoneValidationError = <span className="form-validation-error">Введите корректный номер телефона</span>;
         const fioValidationError = <span className="form-validation-error">ФИО не может быть пустым</span>;
+        const availableSupervisors = getAvailableSupervisors(availableWorkers);
+        const availableManagers = getAvailableManagers(availableWorkers, supervisor, currentWorker);
         return (
            <form className="form">
                <div className="form-group">
@@ -228,11 +235,10 @@ export default class LeadDetailCard extends Component{
                                    className="form-control form-control-custom"
                                    onChange={this.onSourceChange}
                                    value={source || 'Не выбран'}>
-                                   <option value="Не выбран">Не выбран</option>
-                                   <option value="Ашан">Ашан</option>
-                                   <option value="КЧВ">КЧВ</option>
-                                   <option value="Роял">Роял Парк</option>
-                                   <option value="Икея">Икея</option>
+                                   <option value="">Не выбрано</option>
+                                   {availableSources ? availableSources.map(source => (
+                                       <option key={source.source_id} value={source.source_id}>{source.source_title}</option>
+                                   )): ''}
                                </select>
                            </div>
                            <div className="form-group form-group-custom">
@@ -270,33 +276,43 @@ export default class LeadDetailCard extends Component{
                                    className="form-control form-control-custom"
                                    onChange={this.onStatusChange}
                                    value={status}>
-                                   <option value="Не обработан">Не обработан</option>
-                                   <option value="В обработке">В обработке</option>
-                                   <option value="Оформление заказа. Оформление">Оформление заказа. Оформление</option>
-                                   <option value="Обработан. Отказ">Обработан. Отказ</option>
+                                   <option value="">Не выбрано</option>
+                                   {availableStatuses ? availableStatuses.map(status => (
+                                       <option key={status.status_id} value={status.status_id}>{status.title}</option>
+                                   )): ''}
                                </select>
                            </div>
                            <div className="form-group form-group-custom">
                                <label className="form-group-label" htmlFor="lead-supervisior">Супервайзер:</label>
-                               <input
+                               <select
                                    title={supervisor}
                                    id="lead-supervisior"
                                    type="text"
                                    className="form-control form-control-custom"
                                    value={supervisor}
                                    onChange={this.onSupervisiorChange}
-                               />
+                               >
+                                   <option value="">Не выбрано</option>
+                                   {availableSupervisors ? availableSupervisors.map(supervisor => (
+                                       <option key={supervisor.worker_id} value={supervisor.worker_id}>{supervisor.surname} {supervisor.name} {supervisor.middlename}</option>
+                                   )): ''}
+                               </select>
                            </div>
                            <div className="form-group form-group-custom">
                                <label className="form-group-label" htmlFor="lead-responsible">Ответственный:</label>
-                               <input
+                               <select
                                    title={responsible}
                                    id="lead-responsible"
                                    type="text"
                                    className="form-control form-control-custom"
                                    value={responsible}
                                    onChange={this.onResponsibleChange}
-                               />
+                               >
+                                   <option value="">Не выбрано</option>
+                                   {availableManagers ? availableManagers.map(manager => (
+                                       <option key={manager.worker_id} value={manager.worker_id}>{manager.surname} {manager.name} {manager.middlename}</option>
+                                   )): ''}
+                               </select>
                            </div>
                            <div className="form-group form-group-custom">
                                <label className="form-group-label" htmlFor="lead-date">Дата создания:</label>
