@@ -21,7 +21,9 @@ const auth = (req, res, next) => {
   knex
     .from('users')
     .innerJoin('tokens', 'users.user_id', 'tokens.user_id')
-    .select('users.user_id as id', 'users.login')
+    .innerJoin('workers', 'users.user_id', 'workers.user_id')
+    .innerJoin('departments', 'workers.department_id', 'departments.department_id')
+    .select('users.user_id as id', 'users.login', 'workers.role_id as roleID', 'worker_id as workerID', 'departments.head as supervisorID')
     .where('tokens.id', token)
     .then(users => {
       const user = users[0]
@@ -29,7 +31,6 @@ const auth = (req, res, next) => {
         return fail(res)
       }
       req.currentUser = user
-      console.log(user)
       next()
     })
     .catch((error) => {

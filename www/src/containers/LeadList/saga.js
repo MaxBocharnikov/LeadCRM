@@ -10,7 +10,6 @@ const leadService = new LeadService();
 
 function* fetchLeadList() {
     const filter = yield select(getFilter);
-    filter.phone = formatPhoneUtil(filter.phone);
     yield put (showListSpinner());
     const result = yield call(leadService.getLeadList, filter);
     yield put(saveLeadList(result));

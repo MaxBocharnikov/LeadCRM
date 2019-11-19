@@ -23,9 +23,27 @@ const useStyles = makeStyles(theme => ({
     },
 }));
 
+const getSourceTitle = (sources, id) => {
+    if(!sources) return;
+    return sources.filter(source => source.source_id === id)
+        .map(source => source.source_title);
+};
+
+const getStatusTitle = (statuses, id) => {
+    if(!statuses) return;
+    return statuses.filter(status => status.status_id === id)
+        .map(status => status.title);
+};
+
+const getWorkerFio = (workers, id) => {
+    if(!workers) return;
+    return workers.filter((worker) => worker.worker_id === id)
+        .map(worker => `${worker.surname} ${worker.name} ${worker.middlename}`)
+};
+
 const LeadTable = (props) => {
     const classes = useStyles();
-    const {list, onLeadClick} = props;
+    const {list, onLeadClick, sources, statuses, availableWorkers} = props;
     return (
         <Paper className={classes.root}>
             <Table className={classes.table}>
@@ -43,17 +61,17 @@ const LeadTable = (props) => {
                 </TableHead>
                 <TableBody>
                     {list.map(item => (
-                        <TableRow key={item.id} onDoubleClick={(id) => onLeadClick(item.id)}>
+                        <TableRow key={item.lead_id} onDoubleClick={(id) => onLeadClick(item.lead_id)}>
                             <TableCell component="th" scope="row">
-                                {item.id}
+                                {item.lead_id}
                             </TableCell>
-                            <TableCell title={item.date} align="center">{formatDate(item.date, 'shortDate')}</TableCell>
+                            <TableCell title={item.date} align="center">{formatDate(item.creation_date, 'shortDate')}</TableCell>
                             <TableCell title={item.fio} align="center">{item.fio}</TableCell>
                             <TableCell title={item.phone} align="center">{item.phone}</TableCell>
-                            <TableCell title={item.source} align="center">{item.source}</TableCell>
-                            <TableCell title={item.status} align="center">{item.status}</TableCell>
-                            <TableCell title={item.supervisor} align="center">{item.supervisor}</TableCell>
-                            <TableCell title={item.responsible} align="center">{item.responsible}</TableCell>
+                            <TableCell title={item.source} align="center">{getSourceTitle(sources, item.source)}</TableCell>
+                            <TableCell title={item.status} align="center">{getStatusTitle(statuses, item.status)}</TableCell>
+                            <TableCell title={getWorkerFio(availableWorkers, item.supervisor)} align="center">{getWorkerFio(availableWorkers, item.supervisor)}</TableCell>
+                            <TableCell title={getWorkerFio(availableWorkers, item.responsible)} align="center">{getWorkerFio(availableWorkers, item.responsible)}</TableCell>
                         </TableRow>
                     ))}
                 </TableBody>

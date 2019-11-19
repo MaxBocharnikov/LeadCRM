@@ -28,8 +28,9 @@ app.use((req, res, next) => {
 
 app.use('', require('./modules/auth'));
 app.use('/leads', require('./modules/leads'));
-app.use('/workers', require('./modules/workers'))
-
+app.use('/workers', require('./modules/workers'));
+app.use('/sources', require('./modules/sources'));
+app.use('/statuses', require('./modules/statuses'));
 
 app.use((err, req, res, next) => {
   res.status(err.status || 500)

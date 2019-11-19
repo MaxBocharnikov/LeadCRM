@@ -13,6 +13,9 @@ export default class Home extends React.Component {
             return;
         }
         this.props.fetchWorker();
+        this.props.fetchSources();
+        this.props.fetchStatuses();
+        this.props.fetchAvailableWorkers();
     }
 
     componentDidUpdate(prevProps) {

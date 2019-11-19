@@ -1,18 +1,22 @@
 import axios from 'axios';
-import {formatDate} from "../utils/timeUtils";
+import {formatDate} from '../utils/timeUtils';
+import {AUTH_TYPE, TOKEN_STORAGE} from '../constatnts/token';
 
 export default class LeadService {
-    url = 'http://localhost:3030';
+    url = 'http://localhost:5000';
 
 
     getLeadList = (filter) => {
-        console.log('serivce', filter);
         return axios({
-            method: 'get',
-            url: `${this.url}/leadList`,
+            method: 'post',
+            url: `${this.url}/leads/getLeadList`,
             timeout: 15000,
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `${AUTH_TYPE} ${localStorage.getItem(TOKEN_STORAGE)}`
+            },
+            data: {
+                filter
             }
         }).then(response => {
             return response.data;
@@ -22,10 +26,11 @@ export default class LeadService {
     getLeadById = (id) => {
         return axios({
             method: 'get',
-            url: `${this.url}/leadList/${id}`,
+            url: `${this.url}/leads/getLeadById/${id}`,
             timeout: 15000,
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `${AUTH_TYPE} ${localStorage.getItem(TOKEN_STORAGE)}`
             }
         }).then(response => {
             return response.data;
@@ -33,16 +38,14 @@ export default class LeadService {
     };
 
     addLead = (lead) => {
-        const id = Math.floor(Math.random() * 100);
         return axios({
             method: 'post',
-            url: `${this.url}/leadList`,
+            url: `${this.url}/leads/addLead`,
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `${AUTH_TYPE} ${localStorage.getItem(TOKEN_STORAGE)}`
             },
             data: {
-                "id": id,
-                "date": formatDate(new Date().toString(), 'date'),
                 "fio": lead.fio,
                 "phone": lead.phone,
                 "source": lead.source,
@@ -58,16 +61,17 @@ export default class LeadService {
         })
     };
 
-    editLead = (id, lead) => {
+    editLead = (lead) => {
+        console.log(lead);
         return axios({
             method: 'put',
-            url: `${this.url}/leadList/${id}`,
+            url: `${this.url}/leads/editLead/${lead.id}`,
             headers: {
-                "Content-Type": "application/json"
+                "Content-Type": "application/json",
+                "Authorization": `${AUTH_TYPE} ${localStorage.getItem(TOKEN_STORAGE)}`
             },
             data: {
-                "id": id,
-                "date": lead.date,
+                "date": lead.creation_date,
                 "fio": lead.fio,
                 "phone": lead.phone,
                 "source": lead.source,

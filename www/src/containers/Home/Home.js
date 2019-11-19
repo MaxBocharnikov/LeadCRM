@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import {fetchWorker} from '../UserData/actions';
+import {fetchAvailableWorkers, fetchSources, fetchStatuses, fetchWorker} from '../UserData/actions';
 import Home from '../../components/Pages/Home/Home';
 
 function mapStateToProps(state) {
@@ -11,7 +11,10 @@ function mapStateToProps(state) {
 
 function mapDispatchToProps(dispatch) {
     return {
-        fetchWorker: () => dispatch(fetchWorker())
+        fetchWorker: () => dispatch(fetchWorker()),
+        fetchSources: () => dispatch(fetchSources()),
+        fetchStatuses: () => dispatch(fetchStatuses()),
+        fetchAvailableWorkers: () => dispatch(fetchAvailableWorkers())
     }
 }
 

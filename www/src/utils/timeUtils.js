@@ -2,16 +2,17 @@ import moment from 'moment';
 
 
 export function formatDate(date, format) {
+    const formDate = new Date(date);
     switch (format) {
         case 'shortDate': {
-            return moment(date, 'DD-MM-YYYY').format('DD-MM-YYYY');
+            return moment(formDate, 'DD-MM-YYYY').format('DD-MM-YYYY');
         }
         case 'date': {
-            return moment(date).format('DD-MM-YYYY HH:mm:ss');
+            return moment(formDate).format('DD-MM-YYYY HH:mm:ss');
         }
 
         default: {
-            return moment(date).format();
+            return moment(formDate).format();
         }
     }
 }

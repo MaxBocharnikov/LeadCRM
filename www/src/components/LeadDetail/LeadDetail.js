@@ -26,20 +26,24 @@ export default class LeadDetail extends Component{
     };
 
     render() {
-        const {lead, spinner, modal, hideModal, addLead, editLead} = this.props;
+        const {lead, spinner, modal, hideModal, addLead, editLead, availableWorkers, availableSources, availableStatuses, currentWorker} = this.props;
         if (!modal) return null;
         return (
             <Fragment>
                 <Overlay/>
                 {spinner ? <Spinner/> : ''}
-                <div className="lead-detail-modal">
-                    <div className="lead-detail-header">{lead ? `Редактирование лида с id: ${lead.id}` : `Добавление нового лида`}</div>
+                <div className="lead-detail-modal animated bounceInDown">
+                    <div className="lead-detail-header">{lead ? `Редактирование лида с id: ${lead.lead_id}` : `Добавление нового лида`}</div>
                     <LeadDetailCard
                         lead = {lead}
                         addLead = {addLead}
                         editLead = {editLead}
                         submitFromOutside={this.state.submitFromOutside}
                         unSubmitForm = {this.unSubmitForm}
+                        availableWorkers = {availableWorkers}
+                        availableSources = {availableSources}
+                        availableStatuses = {availableStatuses}
+                        currentWorker = {currentWorker}
                     />
                     <div className="lead-detail-footer">
                         <button onClick={this.submitForm} className="btn btn-success lead-btn">{lead ? 'Сохранить' : 'Добавить'}</button>

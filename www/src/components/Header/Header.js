@@ -13,9 +13,9 @@ export default class Header extends React.Component {
         return (
             <div className="header">
                 <h3 className="header-title">Система управление лидами</h3>
-                <div className="header_worker">
+                <div className="header-worker">
                     <p>{worker ? worker.surname + ' ' + worker.name + ' ' + worker.middlename: ''}</p>
-                    <button onClick={this.onLogout} className="btn-primary">Выйти</button>
+                    <i onClick={this.onLogout} class="fas fa-sign-out-alt"></i>
                 </div>
             </div>
         )

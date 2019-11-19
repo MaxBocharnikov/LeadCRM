@@ -1,4 +1,5 @@
 import axios from 'axios';
+import {AUTH_TYPE, TOKEN_STORAGE} from '../constatnts/token';
 
 
 export default class UserDataService {
@@ -9,7 +10,7 @@ export default class UserDataService {
             url: `${this.url}/current-user`,
             headers: {
                 "Content-Type": "application/json",
-                'Authorization': `Basic ${this.token}`
+                "Authorization": `${AUTH_TYPE} ${localStorage.getItem(TOKEN_STORAGE)}`
             }
         }).then(response => {
             return response;
@@ -17,13 +18,52 @@ export default class UserDataService {
     };
 
     getWorkerByUserId = () => {
-        const token = localStorage.getItem('JWT');
         return axios({
             method: 'get',
             url: `${this.url}/workers/getWorkerByUserId`,
             headers: {
                 "Content-Type": "application/json",
-                'Authorization': `Basic ${token}`
+                "Authorization": `${AUTH_TYPE} ${localStorage.getItem(TOKEN_STORAGE)}`
+            }
+        }).then(response => {
+            return response;
+        })
+    };
+
+    getAvailableWorkers = () => {
+        return axios({
+            method: 'get',
+            url: `${this.url}/workers/getWorkers`,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${AUTH_TYPE} ${localStorage.getItem(TOKEN_STORAGE)}`
+            }
+        }).then(response => {
+            return response;
+        })
+    };
+
+
+    getUserSources = () => {
+        return axios({
+            method: 'get',
+            url: `${this.url}/sources/getUserSources`,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${AUTH_TYPE} ${localStorage.getItem(TOKEN_STORAGE)}`
+            }
+        }).then(response => {
+            return response;
+        })
+    };
+
+    getUserStatuses = () => {
+        return axios({
+            method: 'get',
+            url: `${this.url}/statuses/getUserStatuses`,
+            headers: {
+                "Content-Type": "application/json",
+                "Authorization": `${AUTH_TYPE} ${localStorage.getItem(TOKEN_STORAGE)}`
             }
         }).then(response => {
             return response;

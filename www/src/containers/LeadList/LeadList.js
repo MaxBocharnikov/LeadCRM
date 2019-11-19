@@ -7,7 +7,10 @@ import {fetchLeadDetail, showModal} from "../LeadDetail/actions";
 function mapStateToProps(state) {
     return {
         list: state.leadList.list,
-        spinner: state.leadList.spinner
+        spinner: state.leadList.spinner,
+        sources: state.userData.sources,
+        statuses: state.userData.statuses,
+        availableWorkers: state.userData.availableWorkers,
     }
 }
 
