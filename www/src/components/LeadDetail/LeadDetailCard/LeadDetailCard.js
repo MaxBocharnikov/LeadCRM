@@ -4,6 +4,7 @@ import './LeadDetailCard.scss';
 import {formatPhoneUtil} from '../../../utils/phoneFormatUtils';
 import {getAvailableManagers, getAvailableSupervisors} from '../../../utils/workers';
 import {formatDate} from '../../../utils/timeUtils';
+import {Roles} from '../../../constatnts/roles';
 
 export default class LeadDetailCard extends Component{
     state = {
@@ -292,7 +293,7 @@ export default class LeadDetailCard extends Component{
                                    value={supervisor}
                                    onChange={this.onSupervisiorChange}
                                >
-                                   <option value="">Не выбрано</option>
+                                   {currentWorker && currentWorker.role_id === Roles.supervisor ? (<option value="">Не выбрано</option>) : null}
                                    {availableSupervisors ? availableSupervisors.map(supervisor => (
                                        <option key={supervisor.worker_id} value={supervisor.worker_id}>{supervisor.surname} {supervisor.name} {supervisor.middlename}</option>
                                    )): ''}
@@ -308,9 +309,10 @@ export default class LeadDetailCard extends Component{
                                    value={responsible}
                                    onChange={this.onResponsibleChange}
                                >
-                                   <option value="">Не выбрано</option>
+                                   {currentWorker && currentWorker.role_id === Roles.supervisor ? (<option value="">Не выбрано</option>) : null}
                                    {availableManagers ? availableManagers.map(manager => (
-                                       <option key={manager.worker_id} value={manager.worker_id}>{manager.surname} {manager.name} {manager.middlename}</option>
+                                       currentWorker && (currentWorker.role_id === Roles.supervisor || manager.worker_id === currentWorker.worker_id) ?
+                                           <option key={manager.worker_id} value={manager.worker_id}>{manager.surname} {manager.name} {manager.middlename}</option> : null
                                    )): ''}
                                </select>
                            </div>

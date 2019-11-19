@@ -2,6 +2,7 @@ import React from 'react';
 import './Filter.scss';
 import InputElement from 'react-input-mask';
 import {getAvailableSupervisors, getAvailableManagers} from '../../utils/workers'
+import {Roles} from '../../constatnts/roles'
 
 export default class Filter extends React.Component{
 
@@ -51,7 +52,7 @@ export default class Filter extends React.Component{
                                     <option value="">Не выбрано</option>
                                     {availableStatuses ? availableStatuses.map(status => (
                                         <option key={status.status_id} value={status.status_id}>{status.title}</option>
-                                    )): ''}
+                                    )): null}
                                 </select>
                             </div>
                             <div className="col-sm-3">
@@ -65,10 +66,10 @@ export default class Filter extends React.Component{
                                     value={supervisor}
                                     onChange={this.props.onSupervisorChange}
                                 >
-                                    <option value="">Не выбрано</option>
+                                    {currentWorker && currentWorker.role_id === Roles.supervisor ? (<option value="">Не выбрано</option>) : null}
                                     {availableSupervisors ? availableSupervisors.map(supervisor => (
                                         <option key={supervisor.worker_id} value={supervisor.worker_id}>{supervisor.surname} {supervisor.name} {supervisor.middlename}</option>
-                                    )): ''}
+                                    )): null}
                                 </select>
                             </div>
                         </div>
@@ -98,7 +99,7 @@ export default class Filter extends React.Component{
                                     <option value="">Не выбрано</option>
                                     {availableSources ? availableSources.map(source => (
                                         <option key={source.source_id} value={source.source_id}>{source.source_title}</option>
-                                    )): ''}
+                                    )): null}
                                 </select>
                             </div>
                             <div className="col-sm-3">
@@ -112,10 +113,11 @@ export default class Filter extends React.Component{
                                     value={responsible}
                                     onChange={this.props.onResponsibleChange}
                                 >
-                                <option value="">Не выбрано</option>
-                                    {availableManagers ? availableManagers.map(manager => (
-                                        <option key={manager.worker_id} value={manager.worker_id}>{manager.surname} {manager.name} {manager.middlename}</option>
-                                    )): ''}
+                                    {currentWorker && currentWorker.role_id === Roles.supervisor ? (<option value="">Не выбрано</option>) : null}
+                                    {availableManagers ? availableManagers.map(manager =>
+                                        currentWorker && (currentWorker.role_id === Roles.supervisor || manager.worker_id === currentWorker.worker_id) ?
+                                        <option key={manager.worker_id} value={manager.worker_id}>{manager.surname} {manager.name} {manager.middlename}</option> : null
+                                    ): null}
                                 </select>
                             </div>
                             <div className="col-sm-3">
