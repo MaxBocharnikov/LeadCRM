@@ -2,7 +2,8 @@ import { connect } from 'react-redux';
 import Filter from "../../components/Filter/Filter";
 import {fetchLeadList} from "../LeadList/actions";
 import {
-    onDateChange, onFioChange, onPhoneChange, onResponsibleChange, onSourceChange, onStatusChange, onSupervisorChange,
+    onDateChange, onFioChange, onItemChange, onPhoneChange, onResponsibleChange, onSourceChange, onStatusChange,
+    onSupervisorChange,
     resetFilter
 } from "./actions";
 
@@ -27,13 +28,7 @@ function mapDispatchToProps(dispatch) {
     return {
         fetchLeadList: () => dispatch(fetchLeadList()),
         resetFilter: () => dispatch(resetFilter()),
-        onPhoneChange: (event) => dispatch(onPhoneChange(event)),
-        onFioChange: (event) => dispatch(onFioChange(event)),
-        onDateChange: (event) => dispatch(onDateChange(event)),
-        onSourceChange: (event) => dispatch(onSourceChange(event)),
-        onStatusChange: (event) => dispatch(onStatusChange(event)),
-        onResponsibleChange: (event) => dispatch(onResponsibleChange(event)),
-        onSupervisorChange: (event) => dispatch(onSupervisorChange(event)),
+        onItemChange: (name, value) => dispatch(onItemChange(name, value)),
     }
 }
 

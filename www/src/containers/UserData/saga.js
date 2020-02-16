@@ -1,29 +1,26 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import {FETCH_AVAILABLE_WORKERS, FETCH_SOURCES, FETCH_STATUSES, FETCH_WORKER} from './constants';
-import UserDataService from '../../services/userDataService';
+import UserDataService from '../../services/api/userDataService';
 import {saveAvailableWorkers, saveSources, saveStatuses, saveWorker} from './actions';
 
-const userDataService = new UserDataService();
-
-
 function* fetchWorker() {
-    const result = yield call(userDataService.getWorkerByUserId);
-    yield put(saveWorker(result.data))
+    const result = yield call(UserDataService.getWorkerByUserId);
+    yield put(saveWorker(result))
 }
 
 function* fetchSources () {
-    const result = yield call(userDataService.getUserSources);
-    yield put(saveSources(result.data))
+    const result = yield call(UserDataService.getUserSources);
+    yield put(saveSources(result))
 }
 
 function* fetchStatuses () {
-    const result = yield call(userDataService.getUserStatuses);
-    yield put(saveStatuses(result.data));
+    const result = yield call(UserDataService.getUserStatuses);
+    yield put(saveStatuses(result));
 }
 
 function* fetchAvailableWorkers () {
-    const result = yield call(userDataService.getAvailableWorkers);
-    yield put(saveAvailableWorkers(result.data));
+    const result = yield call(UserDataService.getAvailableWorkers);
+    yield put(saveAvailableWorkers(result));
 }
 
 function* userDataWatcher() {

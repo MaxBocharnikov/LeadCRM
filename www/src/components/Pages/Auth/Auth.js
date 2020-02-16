@@ -2,6 +2,7 @@ import React from 'react';
 import { withRouter } from 'react-router-dom'
 
 import './Auth.scss';
+import {TOKEN_STORAGE} from '../../../constatnts/token';
 
 export default class Auth extends React.Component{
 
@@ -11,7 +12,13 @@ export default class Auth extends React.Component{
     };
 
     componentDidMount() {
-       if(localStorage.getItem('JWT')) this.props.onSuccessLogin();
+       if(localStorage.getItem(TOKEN_STORAGE)) this.props.onSuccessLogin();
+    }
+
+    componentDidUpdate(prevProps) {
+        if(prevProps.isAuth !== this.props.isAuth && this.props.isAuth) {
+            this.props.history.push('/home');
+        }
     }
 
     onChangeHandle = (e) => {
@@ -26,9 +33,8 @@ export default class Auth extends React.Component{
     };
 
     render() {
-        const {isAuth, isError} = this.props;
+        const {isError} = this.props;
         const errorMessage = <span className="auth-error">Логин или пароль неверны</span>;
-        if(isAuth) this.props.history.push('/home');
         return (
             <div className="auth-container">
                 <form className="auth-form" onSubmit={this.onSubmit}>

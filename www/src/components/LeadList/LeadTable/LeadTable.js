@@ -1,4 +1,4 @@
-import React, {Component} from 'react';
+import React from 'react';
 import { makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
 import TableBody from '@material-ui/core/TableBody';
@@ -25,19 +25,19 @@ const useStyles = makeStyles(theme => ({
 
 const getSourceTitle = (sources, id) => {
     if(!sources) return;
-    return sources.filter(source => source.source_id === id)
-        .map(source => source.source_title);
+    return sources.filter(source => source.id === id)
+        .map(source => source.title);
 };
 
 const getStatusTitle = (statuses, id) => {
     if(!statuses) return;
-    return statuses.filter(status => status.status_id === id)
+    return statuses.filter(status => status.id === id)
         .map(status => status.title);
 };
 
 const getWorkerFio = (workers, id) => {
     if(!workers) return;
-    return workers.filter((worker) => worker.worker_id === id)
+    return workers.filter((worker) => worker.id === id)
         .map(worker => `${worker.surname} ${worker.name} ${worker.middlename}`)
 };
 
@@ -61,11 +61,11 @@ const LeadTable = (props) => {
                 </TableHead>
                 <TableBody>
                     {list.map(item => (
-                        <TableRow key={item.lead_id} onDoubleClick={(id) => onLeadClick(item.lead_id)}>
+                        <TableRow key={item.id} onDoubleClick={(id) => onLeadClick(item.id)}>
                             <TableCell component="th" scope="row">
-                                {item.lead_id}
+                                {item.id}
                             </TableCell>
-                            <TableCell title={item.date} align="center">{formatDate(item.creation_date, 'shortDate')}</TableCell>
+                            <TableCell title={item.date} align="center">{formatDate(item.date, 'shortDate')}</TableCell>
                             <TableCell title={item.fio} align="center">{item.fio}</TableCell>
                             <TableCell title={item.phone} align="center">{item.phone}</TableCell>
                             <TableCell title={item.source} align="center">{getSourceTitle(sources, item.source)}</TableCell>

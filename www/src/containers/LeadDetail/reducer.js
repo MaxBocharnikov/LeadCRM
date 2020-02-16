@@ -31,7 +31,7 @@ export const LeadDetailReducer = (state = initialState, action) => {
 
         case HIDE_MODAL_SPINNER: {
             return {
-                ... state,
+                ...state,
                 spinner: false
             }
         }

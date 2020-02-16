@@ -1,10 +1,22 @@
 import React from 'react';
 import './Filter.scss';
 import InputElement from 'react-input-mask';
-import {getAvailableSupervisors, getAvailableManagers} from '../../utils/workers'
+import {getAvailableSupervisors, getAvailableManagers, setSupervisorByManager} from '../../utils/workers'
 import {Roles} from '../../constatnts/roles'
 
 export default class Filter extends React.Component{
+
+    componentDidUpdate(prevProp) {
+        if(prevProp.responsible !== this.props.responsible) {
+            const supervisor = setSupervisorByManager(this.props.availableWorkers, this.props.responsible)
+            this.props.onItemChange('supervisor', supervisor);
+        }
+    }
+
+
+    onItemChange = event => {
+        this.props.onItemChange(event.target.name, event.target.value)
+    };
 
     resetFilter = (event) => {
         event.preventDefault();
@@ -35,7 +47,8 @@ export default class Filter extends React.Component{
                                     placeholder="Введите номер телефона"
                                     title="Введите номер телефона"
                                     value={phone}
-                                    onChange={this.props.onPhoneChange}
+                                    name="phone"
+                                    onChange={this.onItemChange}
                                     mask="+7 (999) 999-99-99"
                                 />
                             </div>
@@ -46,12 +59,13 @@ export default class Filter extends React.Component{
                                        className="form-control"
                                        placeholder="Статус"
                                        title="Статус"
-                                       value={status}
-                                       onChange={this.props.onStatusChange}
+                                       name="status"
+                                       value={status || 'Не выбран'}
+                                       onChange={this.onItemChange}
                                 >
                                     <option value="">Не выбрано</option>
                                     {availableStatuses ? availableStatuses.map(status => (
-                                        <option key={status.status_id} value={status.status_id}>{status.title}</option>
+                                        <option key={status.id} value={status.id}>{status.title}</option>
                                     )): null}
                                 </select>
                             </div>
@@ -63,12 +77,13 @@ export default class Filter extends React.Component{
                                     className="form-control"
                                     placeholder="Супервайзер"
                                     title="Супервайзер"
-                                    value={supervisor}
-                                    onChange={this.props.onSupervisorChange}
+                                    name="supervisor"
+                                    value={supervisor || 'Не выбран'}
+                                    onChange={this.onItemChange}
                                 >
-                                    {currentWorker && currentWorker.role_id === Roles.supervisor ? (<option value="">Не выбрано</option>) : null}
+                                    {currentWorker && currentWorker.roleId === Roles.supervisor ? (<option value="">Не выбрано</option>) : null}
                                     {availableSupervisors ? availableSupervisors.map(supervisor => (
-                                        <option key={supervisor.worker_id} value={supervisor.worker_id}>{supervisor.surname} {supervisor.name} {supervisor.middlename}</option>
+                                        <option key={supervisor.id} value={supervisor.id}>{supervisor.surname} {supervisor.name} {supervisor.middlename}</option>
                                     )): null}
                                 </select>
                             </div>
@@ -82,8 +97,9 @@ export default class Filter extends React.Component{
                                     className="form-control"
                                     placeholder="ФИО"
                                     title="ФИО"
+                                    name="fio"
                                     value={fio}
-                                    onChange={this.props.onFioChange}
+                                    onChange={this.onItemChange}
                                 />
                             </div>
                             <div className="col-sm-3">
@@ -93,12 +109,13 @@ export default class Filter extends React.Component{
                                         className="form-control"
                                         placeholder="Источник"
                                         title="Источник"
-                                        value={source}
-                                        onChange={this.props.onSourceChange}
+                                        value={source || 'Не выбран'}
+                                        name="source"
+                                        onChange={this.onItemChange}
                                 >
                                     <option value="">Не выбрано</option>
                                     {availableSources ? availableSources.map(source => (
-                                        <option key={source.source_id} value={source.source_id}>{source.source_title}</option>
+                                        <option key={source.id} value={source.id}>{source.title}</option>
                                     )): null}
                                 </select>
                             </div>
@@ -110,13 +127,14 @@ export default class Filter extends React.Component{
                                     className="form-control"
                                     placeholder="Ответственный"
                                     title="Ответственный"
-                                    value={responsible}
-                                    onChange={this.props.onResponsibleChange}
+                                    value={responsible || 'Не выбран'}
+                                    name="responsible"
+                                    onChange={this.onItemChange}
                                 >
-                                    {currentWorker && currentWorker.role_id === Roles.supervisor ? (<option value="">Не выбрано</option>) : null}
+                                    {currentWorker && currentWorker.roleId === Roles.supervisor ? (<option value="">Не выбрано</option>) : null}
                                     {availableManagers ? availableManagers.map(manager =>
-                                        currentWorker && (currentWorker.role_id === Roles.supervisor || manager.worker_id === currentWorker.worker_id) ?
-                                        <option key={manager.worker_id} value={manager.worker_id}>{manager.surname} {manager.name} {manager.middlename}</option> : null
+                                        currentWorker && (currentWorker.roleId === Roles.supervisor || manager.id === currentWorker.id) ?
+                                        <option key={manager.id} value={manager.id}>{manager.surname} {manager.name} {manager.middlename}</option> : null
                                     ): null}
                                 </select>
                             </div>
@@ -129,7 +147,8 @@ export default class Filter extends React.Component{
                                     placeholder="Укажите даты"
                                     title="Укажите даты"
                                     value={date}
-                                    onChange={this.props.onDateChange}
+                                    name="date"
+                                    onChange={this.onItemChange}
                                 />
                             </div>
                         </div>

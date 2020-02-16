@@ -1,18 +1,14 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import {ADD_LEAD, EDIT_LEAD, FETCH_LEAD_DETAIL} from "./constants";
-import LeadService from "../../services/leadService";
+import LeadService from "../../services/api/leadService";
 import {
     hideModal, hideModalSpinner, saveLeadDetail, showModal, showModalSpinner
 } from './actions';
 import {fetchLeadList, hideListSpinner, showListSpinner} from "../LeadList/actions";
-import {formatPhoneUtil} from '../../utils/phoneFormatUtils';
-
-
-const leadService = new LeadService();
 
 function* fetchLeadDetail(action) {
     yield put(showListSpinner());
-    const result = yield call(leadService.getLeadById, action.payload.id);
+    const result = yield call(LeadService.getLeadById, action.payload.id);
     yield put(saveLeadDetail(result));
     yield put(hideListSpinner());
     yield put(showModal());
@@ -20,7 +16,7 @@ function* fetchLeadDetail(action) {
 
 function* addLead (action) {
     yield put(showModalSpinner());
-    yield call(leadService.addLead, action.payload.lead);
+    yield call(LeadService.addLead, action.payload.lead);
     yield put(fetchLeadList());
     yield put(hideModalSpinner());
     yield put(hideModal());
@@ -28,7 +24,7 @@ function* addLead (action) {
 
 function* editLead (action) {
     yield put(showModalSpinner());
-    yield call(leadService.editLead, action.payload.lead);
+    yield call(LeadService.editLead, action.payload.lead);
     yield put(fetchLeadList());
     yield put(hideModalSpinner());
     yield put(hideModal());

@@ -9,8 +9,8 @@ const {filterLeads, formatPhoneUtil} = require('../utils/leads');
 router.post('/getLeadList', authorize, function (req, res, next) {
     const currentUser = req.currentUser;
     const filter = {
-        ...req.body.filter,
-        phone: formatPhoneUtil(req.body.filter.phone)
+        ...req.body,
+        phone: formatPhoneUtil(req.body.phone)
     };
     switch (currentUser.roleID) {
         case Roles.supervisor:

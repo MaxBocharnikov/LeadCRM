@@ -2,6 +2,7 @@ import moment from 'moment';
 
 
 export function formatDate(date, format) {
+    if(!date) return '';
     const formDate = new Date(date);
     switch (format) {
         case 'shortDate': {

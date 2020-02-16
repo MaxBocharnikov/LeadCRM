@@ -1,15 +1,13 @@
 import { all, call, put, takeLatest } from 'redux-saga/effects';
 import {LOGIN} from './constants';
-import AuthService from '../../services/authService';
+import AuthService from '../../services/api/authService';
 import {onErrorLogin, onSuccessLogin} from './action';
-
-
-const authService = new AuthService();
+import {TOKEN_STORAGE} from '../../constatnts/token';
 
 function* login(action) {
     try {
-        const result = yield call(authService.login, action.payload);
-        localStorage.setItem('JWT', result.data.token);
+        const result = yield call(AuthService.login, action.payload);
+        localStorage.setItem(TOKEN_STORAGE, result.data.token);
         yield put(onSuccessLogin());
     } catch(e) {
         yield put(onErrorLogin())

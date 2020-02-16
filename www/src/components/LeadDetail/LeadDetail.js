@@ -4,7 +4,7 @@ import Spinner from "../Spinner/Spinner";
 import Overlay from "../Overlay/Overlay";
 import LeadDetailCard from "./LeadDetailCard/LeadDetailCard";
 
-export default class LeadDetail extends Component{
+export default class LeadDetail extends Component {
 
     constructor(props) {
         super(props);
@@ -33,7 +33,7 @@ export default class LeadDetail extends Component{
                 <Overlay/>
                 {spinner ? <Spinner/> : ''}
                 <div className="lead-detail-modal animated bounceInDown">
-                    <div className="lead-detail-header">{lead ? `Редактирование лида с id: ${lead.lead_id}` : `Добавление нового лида`}</div>
+                    <div className="lead-detail-header">{lead ? `Редактирование лида с id: ${lead.id}` : `Добавление нового лида`}</div>
                     <LeadDetailCard
                         lead = {lead}
                         addLead = {addLead}

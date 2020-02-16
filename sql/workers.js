@@ -18,7 +18,7 @@ function getWorkerByUserId(userId) {
 function getWorkers() {
     return knex('workers')
         .innerJoin('departments', 'workers.department_id', 'departments.department_id')
-        .select('*', 'departments.head as supervisor')
+        .select('workers.*', 'departments.head as supervisor')
         .then(workers => {
            return workers
         });
@@ -27,7 +27,7 @@ function getWorkers() {
 function getWorkersByDepartment(currentUser) {
     return knex('workers')
         .innerJoin('departments', 'workers.department_id', 'departments.department_id')
-        .select('*', 'departments.head as supervisor')
+        .select('workers.*', 'departments.head as supervisor')
         .where ('workers.worker_id', currentUser.workerID).orWhere('workers.worker_id', currentUser.supervisorID)
         .then(workers => {
             return workers
