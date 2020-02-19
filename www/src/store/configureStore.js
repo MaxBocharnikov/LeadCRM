@@ -10,6 +10,8 @@ import {AuthReducer} from '../containers/Auth/reducer';
 import authWatcher from '../containers/Auth/saga';
 import {UserDataReducer} from '../containers/UserData/reducer';
 import userDataWatcher from '../containers/UserData/saga';
+import {ImportModalReducer} from '../containers/ImportModal/reducer';
+import ImportModalWatcher from '../containers/ImportModal/saga';
 
 
 const reducers = combineReducers({
@@ -17,7 +19,8 @@ const reducers = combineReducers({
     leadDetail: LeadDetailReducer,
     filter: FilterReducer,
     auth: AuthReducer,
-    userData: UserDataReducer
+    userData: UserDataReducer,
+    importModal: ImportModalReducer
 });
 
 function* sagas() {
@@ -25,7 +28,8 @@ function* sagas() {
         leadListWatcher(),
         leadDetailWatcher(),
         authWatcher(),
-        userDataWatcher()
+        userDataWatcher(),
+        ImportModalWatcher()
     ]);
 }
 

@@ -2,6 +2,7 @@ import { connect } from 'react-redux';
 import LeadList from "../../components/LeadList/LeadList";
 import {fetchLeadList} from "./actions";
 import {fetchLeadDetail, showModal} from "../LeadDetail/actions";
+import {showImportModal} from '../ImportModal/actions';
 
 
 function mapStateToProps(state) {
@@ -18,7 +19,8 @@ function mapDispatchToProps(dispatch) {
     return {
         fetchLeadList: () => dispatch(fetchLeadList()),
         openLeadHandler: (id) => dispatch(fetchLeadDetail(id)),
-        addLeadCardOpen: () => dispatch(showModal())
+        addLeadCardOpen: () => dispatch(showModal()),
+        showImportModal: () => dispatch(showImportModal())
     }
 }
 

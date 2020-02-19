@@ -4,6 +4,7 @@ import LeadDetailContainer from '../../../containers/LeadDetail/LeadDetail';
 import LeadListContainer from '../../../containers/LeadList/LeadList';
 import HeaderContainer from '../../../containers/Header/Header';
 import { withRouter } from 'react-router-dom'
+import ImportModalContainer from '../../../containers/ImportModal/ImportModal';
 
 export default class Home extends React.Component {
 
@@ -34,6 +35,7 @@ export default class Home extends React.Component {
                     <FilterContainer/>
                     <LeadListContainer/>
                     <LeadDetailContainer/>
+                    <ImportModalContainer/>
                 </Fragment>
             )
         }

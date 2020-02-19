@@ -21,4 +21,13 @@ export default class LeadService {
     static editLead = async (lead) => {
         return HttpClient.call('put',`${_BASE_URL}/leads/editLead/${lead.id}`, mapClientLeadToDtoLead(lead));
     }
+
+    static importLead = async (importObj) => {
+        return new Promise((resolve, reject) => {
+            console.log(importObj);
+            setTimeout(() => {
+                resolve();
+            }, 1000)
+        })
+    }
 }
