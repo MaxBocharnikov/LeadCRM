@@ -1,14 +1,17 @@
 import { all, call, put, takeLatest, select } from 'redux-saga/effects';
-import {DOWNLOAD_EXCEL_FILE} from './constants';
 import LeadService from '../../services/api/leadService';
-import {hideImportModal} from './actions';
+import {hideImportModal, setErrorStatus} from './actions';
+import {ADD_LEADS_BY_IMPORT} from './constants';
+import {fetchLeadList} from '../LeadList/actions';
 
-function* downloadImportModal(action) {
+function* addLeadsByImport(action) {
     try {
-        yield call(LeadService.importLead, (action.payload.importObj));
+        yield call(LeadService.addLeadsByImport, (action.payload.data));
+        yield put(fetchLeadList());
         yield put(hideImportModal());
     } catch(e) {
-        console.log('error');
+        console.log('error', e);
+        yield put(setErrorStatus(true));
     }
 
 
@@ -16,7 +19,7 @@ function* downloadImportModal(action) {
 
 function* ImportModalWatcher() {
     yield all([
-        takeLatest(DOWNLOAD_EXCEL_FILE, downloadImportModal),
+        takeLatest(ADD_LEADS_BY_IMPORT, addLeadsByImport),
     ]);
 }
 

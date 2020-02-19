@@ -1,11 +1,12 @@
 import { connect } from 'react-redux';
-import {downLoadExcelFile, hideImportModal, showImportModal} from './actions';
+import {addLeadsByImport, hideImportModal, showImportModal} from './actions';
 import ImportModal from '../../components/ImportModal';
 
 function mapStateToProps(state) {
     return {
         isImportModalShown: state.importModal.isImportModalShown,
-        avaliableSources: state.userData.sources
+        avaliableSources: state.userData.sources,
+        importError: state.importModal.importError
     }
 }
 
@@ -14,7 +15,7 @@ function mapDispatchToProps(dispatch) {
     return {
         showImportModal: () => dispatch(showImportModal()),
         hideImportModal: () => dispatch(hideImportModal()),
-        downLoadExcelFile: (importObj) => dispatch(downLoadExcelFile(importObj))
+        addLeadsByImport: (data) => dispatch(addLeadsByImport(data))
     }
 }
 

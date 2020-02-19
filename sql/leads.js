@@ -20,8 +20,8 @@ function getOwnLeadsList(currentUser) {
 function addLead(lead) {
     return knex('leads')
         .insert(lead)
-        .then(lead => {
-            return lead.id
+        .then(resp => {
+            return resp
         })
 }
 

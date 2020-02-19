@@ -1,15 +1,12 @@
 import React, {Component, Fragment} from 'react';
 import Overlay from '../Overlay/Overlay';
 import './ImportModal.scss';
-
+import * as XLSX from 'xlsx';
 
 export default class ImportModal extends Component {
-
-    fileValue = null;
-
     state = {
         source: '',
-        excelFile: null,
+        data: null,
     };
 
 
@@ -21,31 +18,56 @@ export default class ImportModal extends Component {
     };
 
     onFileChange = event => {
-        this.setState({
-            ...this.state,
-            excelFile: event.target.files[0],
-        });
-        // let files = event.target.files;
-        // let reader = new FileReader();
-        // reader.readAsDataURL(files[0]);
-        // reader.onload = e => {
-        //     this.fileValue = event.target.result
-        // }
-    }
-
-    isImportFormAvaliable = () => {
-        return this.state.source && this.state.excelFile;
+        let file = event.target.files[0];
+        let reader = new FileReader();
+        reader.onload = event => {
+            this.setState({
+                ...this.state,
+                data: this.parseExcel(event)
+            });
+        };
+        reader.readAsBinaryString(file)
     };
 
-    downLoadExcelFile = event => {
+    parseExcel = event => {
+        const bstr  = event.target.result;
+        const wb = XLSX.read(bstr, {type:'binary'});
+        const wsname = wb.SheetNames[0];
+        const ws = wb.Sheets[wsname];
+        const data = XLSX.utils.sheet_to_json(ws, {defval:""});
+        return data;
+    };
+
+    getFormattedData = () => {
+        const formattedData = [];
+        this.state.data.forEach(obj => {
+            formattedData.push({
+                'source': this.state.source,
+                'fio': obj['ФИО'],
+                'phone': obj['Телефон'],
+                'email': obj['Email'],
+                'address': obj['Адрес'],
+                'comment': obj['Комментарий']
+            });
+        });
+        return formattedData;
+    };
+
+    isImportFormAvaliable = () => {
+        return this.state.source && this.state.data;
+    };
+
+    submit = event => {
         event.preventDefault();
-        this.props.downLoadExcelFile(this.state);
+        const formattedData = this.getFormattedData();
+        this.props.addLeadsByImport(formattedData);
     }
 
 
     render() {
-        const {isImportModalShown, hideImportModal, avaliableSources} = this.props;
-        const {source, excelFileName} = this.state;
+        const {isImportModalShown, hideImportModal, avaliableSources, importError} = this.props;
+        const {source} = this.state;
+        const errorMessage = importError ? <span className="import-error-message">Что то пошло не так. Повторите попытку.</span> : null;
         if(!isImportModalShown) return null;
         return (
             <Fragment>
@@ -78,12 +100,13 @@ export default class ImportModal extends Component {
                                     onChange={this.onFileChange}
                                 />
                             </div>
+                            {errorMessage}
                         </div>
                         <div className="import-modal-footer">
                             <button
                                 disabled={!this.isImportFormAvaliable()}
                                 className="btn btn-success import-modal-download"
-                                onClick={this.downLoadExcelFile}>Загрузить
+                                onClick={this.submit}>Загрузить
                             </button>
                             <button
                                 className="btn btn-primary import-modal-close"

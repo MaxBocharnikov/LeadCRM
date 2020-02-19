@@ -43,6 +43,15 @@ router.get('/getLeadById/:id', authorize, function (req, res, next) {
         .catch(error => next(error));
 });
 
+router.post('/addLeads', authorize, function (req, res, next) {
+   const data = req.body;
+    addLead(data)
+        .then(() =>  {
+            return res.json();
+        })
+        .catch(error => next(error));
+});
+
 router.post('/addLead', authorize, function (req, res, next) {
     const lead = {
         ...req.body,
@@ -50,7 +59,7 @@ router.post('/addLead', authorize, function (req, res, next) {
     };
     addLead(lead)
         .then(lead =>  {
-            return res.json(lead)
+            return res.json(lead.id)
         })
         .catch(error => next(error));
 });

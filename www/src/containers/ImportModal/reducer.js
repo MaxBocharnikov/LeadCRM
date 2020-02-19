@@ -1,8 +1,8 @@
-
-import {HIDE_IMPORT_MODAL, SHOW_IMPORT_MODAL} from './constants';
+import {HIDE_IMPORT_MODAL, SET_ERROR_STATUS, SHOW_IMPORT_MODAL} from './constants';
 
 const initialState = {
-    isImportModalShown: false
+    isImportModalShown: false,
+    importError: false
 };
 
 export const ImportModalReducer = (state = initialState, action) => {
@@ -18,7 +18,15 @@ export const ImportModalReducer = (state = initialState, action) => {
         case HIDE_IMPORT_MODAL: {
             return {
                 ...state,
-                isImportModalShown: false
+                isImportModalShown: false,
+                importError: false,
+            }
+        }
+
+        case SET_ERROR_STATUS: {
+            return {
+                ...state,
+                importError: action.payload.status
             }
         }
 

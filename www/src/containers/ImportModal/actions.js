@@ -1,4 +1,4 @@
-import {DOWNLOAD_EXCEL_FILE, HIDE_IMPORT_MODAL, SHOW_IMPORT_MODAL} from './constants';
+import {ADD_LEADS_BY_IMPORT, HIDE_IMPORT_MODAL, SET_ERROR_STATUS, SHOW_IMPORT_MODAL} from './constants';
 
 const showImportModal = () => {
     return {
@@ -12,19 +12,28 @@ const hideImportModal = () => {
     }
 };
 
-const downLoadExcelFile = (importObj) => {
+const addLeadsByImport = (data) => {
     return {
-        type: DOWNLOAD_EXCEL_FILE,
+        type: ADD_LEADS_BY_IMPORT,
         payload: {
-            importObj
+            data
         }
     }
-}
+};
 
+const setErrorStatus = status => {
+    return {
+        type: SET_ERROR_STATUS,
+        payload: {
+            status
+        }
+    }
+};
 export {
     showImportModal,
     hideImportModal,
-    downLoadExcelFile
+    addLeadsByImport,
+    setErrorStatus
 }
 
 
