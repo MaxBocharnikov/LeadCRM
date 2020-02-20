@@ -6,7 +6,8 @@ function mapStateToProps(state) {
     return {
         isImportModalShown: state.importModal.isImportModalShown,
         avaliableSources: state.userData.sources,
-        importError: state.importModal.importError
+        importError: state.importModal.importError,
+        loading: state.importModal.loading
     }
 }
 

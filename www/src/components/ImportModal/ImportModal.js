@@ -2,6 +2,7 @@ import React, {Component, Fragment} from 'react';
 import Overlay from '../Overlay/Overlay';
 import './ImportModal.scss';
 import * as XLSX from 'xlsx';
+import Spinner from '../Spinner/Spinner';
 
 export default class ImportModal extends Component {
     state = {
@@ -54,7 +55,7 @@ export default class ImportModal extends Component {
     };
 
     isImportFormAvaliable = () => {
-        return this.state.source && this.state.data;
+        return this.state.source && this.state.data && !this.props.loading;
     };
 
     submit = event => {
@@ -65,13 +66,15 @@ export default class ImportModal extends Component {
 
 
     render() {
-        const {isImportModalShown, hideImportModal, avaliableSources, importError} = this.props;
+        const {isImportModalShown, hideImportModal, avaliableSources, importError, loading} = this.props;
         const {source} = this.state;
         const errorMessage = importError ? <span className="import-error-message">Что то пошло не так. Повторите попытку.</span> : null;
         if(!isImportModalShown) return null;
+        const spinner = loading ? <Spinner/> : null;
         return (
             <Fragment>
                 <Overlay/>
+                {spinner}
                 <div className="import-modal">
                     <form className="import-modal-form">
                         <div className="import-modal-form-content">

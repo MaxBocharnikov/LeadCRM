@@ -1,4 +1,7 @@
-import {ADD_LEADS_BY_IMPORT, HIDE_IMPORT_MODAL, SET_ERROR_STATUS, SHOW_IMPORT_MODAL} from './constants';
+import {
+    ADD_LEADS_BY_IMPORT, HIDE_IMPORT_MODAL, SET_ERROR_STATUS, SET_LOADING_STATUS,
+    SHOW_IMPORT_MODAL
+} from './constants';
 
 const showImportModal = () => {
     return {
@@ -29,11 +32,22 @@ const setErrorStatus = status => {
         }
     }
 };
+
+const setLoadingStatus = status => {
+    return {
+        type: SET_LOADING_STATUS,
+        payload: {
+            status
+        }
+    }
+}
+
 export {
     showImportModal,
     hideImportModal,
     addLeadsByImport,
-    setErrorStatus
+    setErrorStatus,
+    setLoadingStatus
 }
 
 
