@@ -1,13 +1,23 @@
 import React, {Component, Fragment} from 'react';
 import Overlay from '../Overlay/Overlay';
 import './ImportModal.scss';
-import * as XLSX from 'xlsx';
+
 import Spinner from '../Spinner/Spinner';
+import ImportService from '../../services/importService';
 
 export default class ImportModal extends Component {
+
+    importService = null;
+
+    constructor(props) {
+        super(props);
+        this.importService = new ImportService();
+    }
+
     state = {
         source: '',
         data: null,
+        invalidFileType: false
     };
 
 
@@ -18,25 +28,21 @@ export default class ImportModal extends Component {
         })
     };
 
-    onFileChange = event => {
-        let file = event.target.files[0];
-        let reader = new FileReader();
-        reader.onload = event => {
+    onFileChange = async event => {
+        try {
+            const data = await this.importService.readFile(event);
             this.setState({
                 ...this.state,
-                data: this.parseExcel(event)
+                invalidFileType: false,
+                data
             });
-        };
-        reader.readAsBinaryString(file)
-    };
+        } catch(e) {
+            this.setState({
+                ...this.state,
+                invalidFileType: true
+            });
+        }
 
-    parseExcel = event => {
-        const bstr  = event.target.result;
-        const wb = XLSX.read(bstr, {type:'binary'});
-        const wsname = wb.SheetNames[0];
-        const ws = wb.Sheets[wsname];
-        const data = XLSX.utils.sheet_to_json(ws, {defval:""});
-        return data;
     };
 
     getFormattedData = () => {
@@ -55,20 +61,27 @@ export default class ImportModal extends Component {
     };
 
     isImportFormAvaliable = () => {
-        return this.state.source && this.state.data && !this.props.loading;
+        return this.state.source && this.state.data && !this.props.loading && !this.state.invalidFileType;
     };
 
     submit = event => {
         event.preventDefault();
         const formattedData = this.getFormattedData();
         this.props.addLeadsByImport(formattedData);
-    }
+    };
+
+    renderErrorMessage = (message) => {
+      return (
+          <span className="import-error-message">{message}</span>
+      )
+    };
 
 
     render() {
         const {isImportModalShown, hideImportModal, avaliableSources, importError, loading} = this.props;
-        const {source} = this.state;
-        const errorMessage = importError ? <span className="import-error-message">Что то пошло не так. Повторите попытку.</span> : null;
+        const {source, invalidFileType} = this.state;
+        const invalidFileMessage = invalidFileType ? this.renderErrorMessage('Некорректный тип файла') : null;
+        const errorMessage = importError ? this.renderErrorMessage('Что то пошло не так, повторите попытку') : null;
         if(!isImportModalShown) return null;
         const spinner = loading ? <Spinner/> : null;
         return (
@@ -104,6 +117,7 @@ export default class ImportModal extends Component {
                                 />
                             </div>
                             {errorMessage}
+                            {invalidFileMessage}
                         </div>
                         <div className="import-modal-footer">
                             <button
