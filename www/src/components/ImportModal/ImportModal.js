@@ -78,6 +78,7 @@ export default class ImportModal extends Component {
 
 
     render() {
+
         const {isImportModalShown, hideImportModal, avaliableSources, importError, loading} = this.props;
         const {source, invalidFileType} = this.state;
         const invalidFileMessage = invalidFileType ? this.renderErrorMessage('Некорректный тип файла') : null;

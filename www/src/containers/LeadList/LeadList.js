@@ -12,6 +12,7 @@ function mapStateToProps(state) {
         sources: state.userData.sources,
         statuses: state.userData.statuses,
         availableWorkers: state.userData.availableWorkers,
+        currentWorker: state.userData.worker
     }
 }
 
